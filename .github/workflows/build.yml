@@ -1,24 +1,24 @@
-name: Build Dev
+name: 开发版构建
 
 on:
   workflow_dispatch:
   push:
     paths-ignore:
-      - '.github/*'
+      - '.github/**'
       - '*.md'
   pull_request:
     paths-ignore:
-      - '.github/*'
+      - '.github/**'
       - '*.md'
 
 jobs:
   build:
     runs-on: windows-latest
     steps:
-    - name: Checkout repository
+    - name: 检出仓库
       uses: actions/checkout@v6
 
-    # - name: Change DNS Server
+    # - name: 更改 DNS 服务器
     #   shell: pwsh
     #   run: |
     #     $newDnsServers = @('1.1.1.1', '8.8.8.8')
@@ -29,30 +29,30 @@ jobs:
     #     }
     #     ipconfig /flushdns
 
-    # - name: Install Cloudflare WRAP
+    # - name: 安装 Cloudflare WARP
     #   shell: pwsh
     #   run: |
-    #     Write-Host "installing Cloudflare WARP..."
+    #     Write-Host "正在安装 Cloudflare WARP..."
     #     Invoke-WebRequest -Uri "https://1111-releases.cloudflareclient.com/win/latest" -OutFile "C:\cfwarp.msi"
     #     Start-Process "msiexec.exe" -ArgumentList "/i C:\cfwarp.msi /qn" -Wait
     #     Set-Location "C:\Program Files\Cloudflare\Cloudflare WARP"
     #     .\warp-cli.exe registration new
     #     .\warp-cli.exe connect
-    #     # Add a loop to wait for the status to be connected
+    #     # 循环等待连接状态
     #     for ($attemptCount = 0; $attemptCount -lt 10; $attemptCount++) {
     #         $output = .\warp-cli.exe status
     #         Write-Host $output
     #         if ($output -like "*Status update: Connected*") {
     #             break
     #         }
-    #         Start-Sleep -Seconds 5  # Wait for 5 seconds before checking again
-    #     } 
-    #     if ($attemptCount -eq 10) {
-    #         Write-Host "Failed to connect after 10 attempts."
-    #         exit 1  # Exit with an error code
+    #         Start-Sleep -Seconds 5  # 等待 5 秒后重试
     #     }
-  
-    - name: Generate version based on current date and time
+    #     if ($attemptCount -eq 10) {
+    #         Write-Host "连接失败，已重试 10 次。"
+    #         exit 1  # 退出并返回错误码
+    #     }
+
+    - name: 根据当前日期时间生成版本号
       id: generate_version
       shell: pwsh
       run: |
@@ -64,34 +64,34 @@ jobs:
         $hour = $date.Hour.ToString("0")
         $minute = $date.Minute.ToString("0")
         $version = "$year.$month.$day.$hour$minute"
-        echo "Version: $version"
+        echo "版本号: $version"
         echo $PSVersionTable
         echo $GITHUB_OUTPUT
         echo "version=$version" >> $env:GITHUB_OUTPUT
 
-    - name: Install NSIS
+    - name: 安装 NSIS
       shell: pwsh
       run: |
-        Write-Host "Installing NSIS..."
+        Write-Host "正在安装 NSIS..."
         choco install nsis -y
 
-    - name: Build XROSC
+    - name: 构建 XROSC
       shell: pwsh
       env:
         GITHUB_WORKFLOW_VERSION: ${{ steps.generate_version.outputs.version }}
       run: |
         . .\build.ps1
 
-    # - name: Disconnect Cloudflare WRAP
+    # - name: 断开 Cloudflare WARP
     #   shell: pwsh
     #   run: |
     #     Set-Location "C:\Program Files\Cloudflare\Cloudflare WARP"
     #     .\warp-cli.exe disconnect
-  
-    - name: Upload Artifact
+
+    - name: 上传构建产物
       uses: actions/upload-artifact@v6
       with:
-        name: XRSYS_OSC_CI_Build_v${{ steps.generate_version.outputs.version }}
+        name: XRSYS_OSC_开发版_v${{ steps.generate_version.outputs.version }}
         path: |
             osc.exe
             osc.exe.ver

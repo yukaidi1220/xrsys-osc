@@ -1,4 +1,32 @@
+# Windows 系统文件
 desktop.ini
+Thumbs.db
+ehthumbs.db
+*.stackdump
+$RECYCLE.BIN/
+*.lnk
+
+# 临时文件
+*.tmp
+*.temp
+~$*
+
+# 日志文件
+*.log
+
+# VSCode
+.vscode/settings.json
+.vscode/launch.json
+
+# JetBrains
+.idea/
+
+# 通用
+*.bak
+*.swp
+*.swo
+
+# 项目特定忽略
 osc.exe
 osc/apifiles/Version.txt
 osc/oscoffline.bat
