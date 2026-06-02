@@ -11,6 +11,7 @@ set "xrkmslogfile=%~dp0xrkms.log"
 if exist "%systemdrive%\Windows\Setup\osc" set "xrkmslogfile=%systemdrive%\Windows\Setup\xrkms.log"
 
 :ask
+goto main
 cls
 title %ver% - 自购授权需求询问（请勿关闭此窗口）
 if defined wbox (
@@ -56,7 +57,7 @@ set isots=1
 set isohk=0
 set officepath=
 
-echo 正在检测并设置激活方案...
+echo 正在检测并设置优化方案...
 echo 正在检测并设置激活方案... >>"%xrkmslogfile%"
 
 call :isWinActivated
@@ -94,32 +95,32 @@ if not exist vlmcs.exe goto offline
 cls
 title %ver% - 网络测试（请勿关闭此窗口）
 echo 正在测试您的电脑是否能够连接到Internet...
-ping www.baidu.com -n 1 >nul
+ping www.taobao.com -n 1 >nul
 if %errorlevel% NEQ 0 (
-    echo 您的电脑不能够连接到Internet，即将为您本地激活
+    echo 您的电脑不能够连接到Internet，即将为您本地优化
     echo 您的电脑不能够连接到Internet，即将为您本地激活 >>"%xrkmslogfile%"
     goto offline
 )
-echo 您的电脑能够连接到Internet，即将为您在线激活
+echo 您的电脑能够连接到Internet，即将为您在线优化
 for %%s in (%serverlist%) do (
     echo 正在测试您的电脑是否能与激活服务器%%s连接...
     vlmcs.exe -l 1 %%s 2>nul | find /i "successful" 1>nul 2>nul && (
-        echo 您的电脑能与激活服务器%%s连接，即将为您在线激活
+        echo 您的电脑能与服务器连接，即将为您在线优化
         echo 您的电脑能与激活服务器%%s连接，即将为您在线激活 >>"%xrkmslogfile%"
         set server=%%s
         goto online
     )
-    echo 您的电脑不能与激活服务器%%s连接，尝试下一个服务器...
+    echo 您的电脑不能与服务器连接，尝试下一个服务器...
     echo 您的电脑不能与激活服务器%%s连接，尝试下一个服务器... >>"%xrkmslogfile%"
 )
-echo 您的电脑不能与激活服务器连接，即将为您本地激活
+echo 您的电脑不能与激活服务器连接，即将为您本地优化
 echo 您的电脑不能与激活服务器连接，即将为您本地激活 >>"%xrkmslogfile%"
 goto offline
 
 :offline
 cls
-title %ver% - 离线激活（请勿关闭此窗口）
-echo 正在离线激活系统，请稍候...
+title %ver% - 离线优化（请勿关闭此窗口）
+echo 正在离线优化系统，请稍候...
 echo 正在离线激活系统，请稍候... >>"%xrkmslogfile%"
 >Set.ini echo [Smart]
 >>Set.ini echo HWID=0
@@ -129,13 +130,13 @@ goto afteract
 
 :online
 cls
-title %ver% - 在线激活（请勿关闭此窗口）
-echo 正在在线激活系统，请稍候...
+title %ver% - 在线优化（请勿关闭此窗口）
+echo 正在在线优化系统，请稍候...
 echo 正在在线激活系统，请稍候... >>"%xrkmslogfile%"
 call :runKVA
 call :isWinActivated
 if %errorlevel% EQU 0 goto afteract
-echo 正在进一步激活系统，请稍候...
+echo 正在进一步优化系统，请稍候...
 echo 正在进一步激活系统，请稍候... >>"%xrkmslogfile%"
 >Set.ini echo [Smart]
 >>Set.ini echo OHook=0
@@ -150,7 +151,7 @@ title %ver% - 后续处理（请勿关闭此窗口）
 echo 正在进行后续处理，请稍候...
 echo 正在进行后续处理，请稍候... >>"%xrkmslogfile%"
 if "%iswtsesu%"=="1" (
-   echo 正在激活 Windows ESU...
+   echo 正在处理 Windows ESU...
    echo 正在激活 Windows ESU... >>"%xrkmslogfile%"
    call :runTS /Z-ESU
 )
@@ -161,13 +162,14 @@ cd /d "%~dp0"
 echo 脚本执行完毕，环境如下： >>"%xrkmslogfile%"
 set >>"%xrkmslogfile%"
 cls
-echo 激活完毕，如果还未激活，请使用桌面“常用工具”内的激活工具激活！
+echo 优化完毕，如果还未成功，请使用桌面“常用工具”内的工具优化！
 timeout -t 5 >nul 2>nul || ping 127.0.0.1 -n 5 >nul
 exit
 
 :runKVA
-echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
-echo 服务器：%server%
+REM echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
+REM echo 服务器：%server%
+echo 正在执行KVA...
 echo 执行KMS_VL_ALL_AIO，参数：/u /s /l /x /e %server% >>"%xrkmslogfile%"
 if defined pecmd (
     start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
@@ -177,7 +179,8 @@ if defined pecmd (
 goto :eof
 
 :runHEU <*param>
-echo 技术支持：HEU KMS Activator by 知彼而知己
+REM echo 技术支持：HEU KMS Activator by 知彼而知己
+echo 正在执行HKA...
 echo 执行参数：%*
 echo 执行HEU，参数：%* >>"%xrkmslogfile%"
 if exist "Set.ini" type "Set.ini" >>"%xrkmslogfile%"
@@ -197,7 +200,8 @@ for %%a in ("%TEMP%\HEU*_Debug.txt") DO (
 goto :eof
 
 :runTS
-echo 技术支持：TSForge by Massgrave
+REM echo 技术支持：TSForge by Massgrave
+echo 正在执行TSF...
 echo 执行参数：%*
 echo 执行TSForge，参数：%* >>"%xrkmslogfile%"
 if defined pecmd (
@@ -241,17 +245,17 @@ if %osver% EQU 1 (
     set errorlevel=0
     goto :eof
 )
-echo 正在检测Windows激活状态...
+echo 正在检测Windows状态...
 echo 正在检测Windows激活状态... >>"%xrkmslogfile%"
 if not exist "%SystemDrive%\Windows\System32\wbem\WMIC.exe" (
     echo 未找到WMIC！
     echo 未找到WMIC！ >>"%xrkmslogfile%"
     if exist "%SystemDrive%\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" (
-        echo 正在尝试使用PowerShell检测Windows激活状态...
+        echo 正在尝试使用PowerShell检测Windows状态...
         echo 正在尝试使用PowerShell检测Windows激活状态... >>"%xrkmslogfile%"
        goto :isWinActivatedPS
     ) else (
-        echo 无法检测Windows激活状态，缺少WMIC和PowerShell！
+        echo 无法检测Windows状态，缺少WMIC和PowerShell！
         echo 无法检测Windows激活状态，缺少WMIC和PowerShell！ >>"%xrkmslogfile%"
         set errorlevel=0
     )
@@ -259,7 +263,7 @@ if not exist "%SystemDrive%\Windows\System32\wbem\WMIC.exe" (
 set LicenseStatus=
 for /f "tokens=2 delims==" %%a in ('wmic path SoftwareLicensingProduct where "Name like 'Windows%%' and PartialProductKey is not null" get LicenseStatus /value 2^>nul ^| find "="') do set "LicenseStatus=%%a"
 if "%LicenseStatus%"=="1" (
-    echo Windows已激活
+    echo Windows已优化
     echo Windows已激活 >>"%xrkmslogfile%"
     set errorlevel=0
 ) else (
@@ -270,12 +274,12 @@ if "%LicenseStatus%"=="1" (
 goto :eof
 
 :isWinActivatedPS -> errorlevel EQU 0 ? true : false
-echo 正在使用PowerShell检测Windows激活状态...
+echo 正在使用PowerShell检测Windows状态...
 echo 正在使用PowerShell检测Windows激活状态... >>"%xrkmslogfile%"
 set LicenseStatus=
 for /f "tokens=*" %%a in ('powershell -NoLogo -NoProfile -Command "(Get-CimInstance -Class SoftwareLicensingProduct -Filter 'Name like ''Windows%%'' and PartialProductKey is not null').LicenseStatus" 2^>nul') do set "LicenseStatus=%%a"
 if "%LicenseStatus%"=="1" (
-    echo Windows已激活
+    echo Windows已优化
     echo Windows已激活 >>"%xrkmslogfile%"
     set errorlevel=0
 ) else (
@@ -290,7 +294,7 @@ if not defined officepath (
     set errorlevel=0
     goto :eof
 )
-echo 正在检测Office激活状态...
+echo 正在检测Office优化状态...
 echo 正在检测Office激活状态... >>"%xrkmslogfile%"
 (cscript.exe //nologo "%officepath%\OSPP.VBS" /dstatus | find /i "LICENSE STATUS:  ---LICENSED---") >>"%xrkmslogfile%"
 if %errorlevel% EQU 0 (
@@ -298,7 +302,7 @@ if %errorlevel% EQU 0 (
     echo Office未激活 >>"%xrkmslogfile%"
     set errorlevel=1
 ) else (
-    echo Office已激活
+    echo Office已优化
     echo Office已激活 >>"%xrkmslogfile%"
     set errorlevel=0
 )
