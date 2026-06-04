@@ -101,9 +101,13 @@ jobs:
       uses: actions/upload-artifact@v6
       with:
         name: XRSYS_OSC_开发版_v${{ steps.generate_version.outputs.version }}
+        # osc.exe       — NSIS 编译生成的安装包
+        # osc.exe.ver   — 版本号文件
+        # osc.exe.sha256 — SHA256 校验文件
+        # osc.exe.md5   — MD5 校验文件
         path: |
-            osc.exe           # NSIS 编译生成的安装包
-            osc.exe.ver       # 版本号文件
-            osc.exe.sha256    # SHA256 校验文件
-            osc.exe.md5       # MD5 校验文件
+            osc.exe
+            osc.exe.ver
+            osc.exe.sha256
+            osc.exe.md5
         compression-level: 0  # 不压缩（安装包本身已压缩）

@@ -98,8 +98,12 @@ jobs:
         prerelease: true                                                   # 标记为预发布版本
         generate_release_notes: true                                       # 自动生成发布说明
         token: ${{ secrets.MY_TOKEN }}                                     # 使用自定义 Token（需要写权限）
+        # osc.exe       — NSIS 编译生成的安装包
+        # osc.exe.ver   — 版本号文件
+        # osc.exe.sha256 — SHA256 校验文件
+        # osc.exe.md5   — MD5 校验文件
         files: |
-            osc.exe           # NSIS 编译生成的安装包
-            osc.exe.ver       # 版本号文件
-            osc.exe.sha256    # SHA256 校验文件
-            osc.exe.md5       # MD5 校验文件
+            osc.exe
+            osc.exe.ver
+            osc.exe.sha256
+            osc.exe.md5
