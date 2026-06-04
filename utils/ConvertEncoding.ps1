@@ -1,14 +1,16 @@
-# 定义尝试的编码列表
+# 定义尝试的编码列表（按优先级排列: UTF-8、Unicode(UTF-16LE)、GB2312、ASCII、Big5）
 $encodings = [System.Text.Encoding]::UTF8, [System.Text.Encoding]::Unicode, [System.Text.Encoding]::GetEncoding("GB2312"), [System.Text.Encoding]::ASCII, [System.Text.Encoding]::GetEncoding("Big5")
 
-# 获取所有 .reg 文件
+# 获取当前目录及子目录下所有 .reg 注册表文件
 $files = Get-ChildItem "*.reg" -Recurse
 
 foreach ($file in $files) {
     $isCorrect = $false
+    # 依次尝试每种编码读取文件内容
     foreach ($encoding in $encodings) {
         try {
             $content = [System.IO.File]::ReadAllText($file.FullName, $encoding)
+            # 显示读取到的内容供用户确认
             Write-Host "$content" -BackgroundColor DarkGray
             Write-Host "尝试使用 $($encoding.WebName) 编码读取文件 '$($file.Name)'。" -ForegroundColor Green
             Write-Host "这是正常的文件吗？(y/n)" -ForegroundColor Yellow
@@ -22,6 +24,7 @@ foreach ($file in $files) {
         }
     }
 
+    # 如果自动检测的编码都不正确，提示用户手动指定编码
     if (-not $isCorrect) {
         Write-Host "请指定正确的编码："
         $customEncodingName = Read-Host
@@ -36,7 +39,7 @@ foreach ($file in $files) {
         }
     }
 
-    # 转换文件为 UTF-16LE 编码
+    # 将文件内容以 UTF-16LE (Unicode) 编码重新写入（Windows 注册表文件的标准编码）
     [System.IO.File]::WriteAllText($file.FullName, $content, [System.Text.Encoding]::Unicode)
     Write-Host "文件 '$($file.Name)' 已成功转换为 UTF-16LE 编码。"
 }

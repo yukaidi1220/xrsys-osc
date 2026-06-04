@@ -1,19 +1,20 @@
+# 开发版构建工作流：每次推送或 PR 时自动构建，用于持续集成
 name: 开发版构建
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:   # 支持手动触发
   push:
-    paths-ignore:
-      - '.github/**'
-      - '*.md'
+    paths-ignore:      # 以下文件变更时不触发构建
+      - '.github/**'   # 工作流文件本身的变更
+      - '*.md'         # 文档文件的变更
   pull_request:
-    paths-ignore:
+    paths-ignore:      # PR 涉及以下路径时不触发构建
       - '.github/**'
       - '*.md'
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-latest   # 使用最新的 Windows 运行器（兼容 NSIS 和 Windows 工具链）
     steps:
     - name: 检出仓库
       uses: actions/checkout@v6
@@ -52,29 +53,36 @@ jobs:
     #         exit 1  # 退出并返回错误码
     #     }
 
+    # 根据当前日期时间自动生成版本号（格式: YY.M.D.HHmm）
     - name: 根据当前日期时间生成版本号
       id: generate_version
       shell: pwsh
       run: |
+        # 使用中国标准时间
         Set-TimeZone -Id "China Standard Time" -PassThru
         $date = Get-Date
+        # 提取年份后两位、月、日、时、分
         $year = $date.Year.ToString().Substring(2)
         $month = $date.Month.ToString("0")
         $day = $date.Day.ToString("0")
         $hour = $date.Hour.ToString("0")
         $minute = $date.Minute.ToString("0")
+        # 拼接版本号（如 26.6.4.1430）
         $version = "$year.$month.$day.$hour$minute"
         echo "版本号: $version"
         echo $PSVersionTable
         echo $GITHUB_OUTPUT
+        # 将版本号输出到 GitHub Actions 上下文，供后续步骤使用
         echo "version=$version" >> $env:GITHUB_OUTPUT
 
+    # 通过 Chocolatey 包管理器安装 NSIS 打包工具
     - name: 安装 NSIS
       shell: pwsh
       run: |
         Write-Host "正在安装 NSIS..."
         choco install nsis -y
 
+    # 执行 build.ps1 脚本：下载依赖文件、校验哈希、调用 NSIS 编译安装包
     - name: 构建 XROSC
       shell: pwsh
       env:
@@ -88,13 +96,14 @@ jobs:
     #     Set-Location "C:\Program Files\Cloudflare\Cloudflare WARP"
     #     .\warp-cli.exe disconnect
 
+    # 将构建产物（安装包、版本文件、校验文件）上传为 GitHub Artifact
     - name: 上传构建产物
       uses: actions/upload-artifact@v6
       with:
         name: XRSYS_OSC_开发版_v${{ steps.generate_version.outputs.version }}
         path: |
-            osc.exe
-            osc.exe.ver
-            osc.exe.sha256
-            osc.exe.md5
-        compression-level: 0
+            osc.exe           # NSIS 编译生成的安装包
+            osc.exe.ver       # 版本号文件
+            osc.exe.sha256    # SHA256 校验文件
+            osc.exe.md5       # MD5 校验文件
+        compression-level: 0  # 不压缩（安装包本身已压缩）

@@ -1,11 +1,12 @@
+# 构建并发布工作流：仅支持手动触发，用于正式版本发布
 name: 构建并发布
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:   # 仅手动触发（避免意外发布）
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-latest   # 使用最新的 Windows 运行器
     steps:
     - name: 检出仓库
       uses: actions/checkout@v6
@@ -44,29 +45,36 @@ jobs:
     #         exit 1  # 退出并返回错误码
     #     }
 
+    # 根据当前日期时间自动生成版本号（格式: YY.M.D.HHmm）
     - name: 根据当前日期时间生成版本号
       id: generate_version
       shell: pwsh
       run: |
+        # 使用中国标准时间
         Set-TimeZone -Id "China Standard Time" -PassThru
         $date = Get-Date
+        # 提取年份后两位、月、日、时、分
         $year = $date.Year.ToString().Substring(2)
         $month = $date.Month.ToString("0")
         $day = $date.Day.ToString("0")
         $hour = $date.Hour.ToString("0")
         $minute = $date.Minute.ToString("0")
+        # 拼接版本号（如 26.6.4.1430）
         $version = "$year.$month.$day.$hour$minute"
         echo "版本号: $version"
         echo $PSVersionTable
         echo $GITHUB_OUTPUT
+        # 将版本号输出到 GitHub Actions 上下文，供后续步骤使用
         echo "version=$version" >> $env:GITHUB_OUTPUT
 
+    # 通过 Chocolatey 包管理器安装 NSIS 打包工具
     - name: 安装 NSIS
       shell: pwsh
       run: |
         Write-Host "正在安装 NSIS..."
         choco install nsis -y
 
+    # 执行 build.ps1 脚本：下载依赖文件、校验哈希、调用 NSIS 编译安装包
     - name: 构建 XROSC
       shell: pwsh
       env:
@@ -80,17 +88,18 @@ jobs:
     #     Set-Location "C:\Program Files\Cloudflare\Cloudflare WARP"
     #     .\warp-cli.exe disconnect
 
+    # 创建 GitHub Release 并上传构建产物作为发布资源
     - name: 创建发布并上传资源
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: v${{ steps.generate_version.outputs.version }}
-        name: XRSYS-OSC v${{ steps.generate_version.outputs.version }}
-        draft: false
-        prerelease: true
-        generate_release_notes: true
-        token: ${{ secrets.MY_TOKEN }}
+        tag_name: v${{ steps.generate_version.outputs.version }}          # Git 标签名
+        name: XRSYS-OSC v${{ steps.generate_version.outputs.version }}    # Release 标题
+        draft: false                                                       # 非草稿
+        prerelease: true                                                   # 标记为预发布版本
+        generate_release_notes: true                                       # 自动生成发布说明
+        token: ${{ secrets.MY_TOKEN }}                                     # 使用自定义 Token（需要写权限）
         files: |
-            osc.exe
-            osc.exe.ver
-            osc.exe.sha256
-            osc.exe.md5
+            osc.exe           # NSIS 编译生成的安装包
+            osc.exe.ver       # 版本号文件
+            osc.exe.sha256    # SHA256 校验文件
+            osc.exe.md5       # MD5 校验文件
