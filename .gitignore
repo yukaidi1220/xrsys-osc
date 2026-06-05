@@ -17,6 +17,7 @@ $RECYCLE.BIN/
 # VSCode
 .vscode/settings.json
 .vscode/launch.json
+.arts
 
 # JetBrains
 .idea/
