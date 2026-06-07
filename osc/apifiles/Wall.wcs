@@ -1,5 +1,5 @@
 ﻿// ===============================================================================
-//                           潇然系统部署背景插件 PECMD 版
+//                           鹅鹅鹅OS部署背景插件 PECMD 版
 // ===============================================================================
 
 // 获取分辨率
@@ -16,7 +16,7 @@ IFEX ! "wall.jpg" ,FILE "%SystemDrive%\Windows\Web\Wallpaper\Windows\img0.jpg"=>
 // 主窗口，启动！
 CALL WIN1
 
-_SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,imageres.dll#22,#,,-ntab -nfocus -na -trap
+_SUB WIN1,L0T0W%ScrW%H%ScrH%,鹅鹅鹅OS部署背景插件,,imageres.dll#22,#,,-ntab -nfocus -na -trap
     // ENVI @this.Enable=0
     ENVI @this.Font=12:微软雅黑
     CALL DRAW
@@ -63,8 +63,8 @@ _SUB DRAW
     // PE调试时显示最小化按钮
     IFEX x:\Windows\Xiaoran.ico,CALL WBTN
     // 副标题显示镜像信息
-    READ "%SystemDrive%\Windows\Version.txt",1,XRSYSVER
-    IFEX ! |%XRSYSVER%=,ENVI @LABE2=%XRSYSVER%
+    READ "%SystemDrive%\Windows\Version.txt",1,EEEOSVER
+    IFEX ! |%EEEOSVER%=,ENVI @LABE2=%EEEOSVER%
     
 
 _END

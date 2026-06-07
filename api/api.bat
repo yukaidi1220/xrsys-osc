@@ -422,10 +422,10 @@ if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
         )
     )
 )
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "XRSYSAPI"
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "EEEOSAPI"
 for /f "delims= " %%i in ('reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /t REG_EXPAND_SZ ^| find /i "Unattend"') do reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v %%i /f
 if exist "%SystemDrive%\Windows\OsConfig\osc.exe" copy /y "%SystemDrive%\Windows\OsConfig\osc.exe" "%SystemDrive%\Windows\Setup\Set\osc.exe"
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "XRSYSAPI" /t REG_SZ /d "%~dp0osc.exe /S /5"
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "EEEOSAPI" /t REG_SZ /d "%~dp0osc.exe /S /5"
 shutdown -r -t 0
 goto end
 
@@ -483,13 +483,13 @@ if %osver% GEQ 3 (
 
 
 echo 删除残留的系统启动项
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "XRSYSAPI"
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "EEEOSAPI"
 for /f "delims= " %%i in ('reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /t REG_EXPAND_SZ ^| find /i "Unattend"') do reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v %%i /f
 del /f /q "%SystemDrive%\Windows\System32\deploy.exe"
 echo 删除装机助理残留
 del /q /f "%SystemDrive%\Users\Public\Desktop\Internet Explorer.lnk"
 del /q /f "%SystemDrive%\Users\Public\Desktop\网址导航.lnk"
-echo 潇然系统盗版提示
+echo 鹅鹅鹅OS盗版提示
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticecaption /t REG_SZ /d "警告：您的系统可能没有部署完整（API）" /f
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticetext /t REG_SZ /d "这通常是网络连接不稳定或部署程序BUG导致的，请在点击【确定】登录账户后，访问http://url.xrgzs.top/osc下载、重新运行osc.exe尝试解决。此提示每次登录前都会强制弹出，如有特殊情况请访问https://sys.xrgzs.top/faq/error.html#legal-notice解决。" /f
 

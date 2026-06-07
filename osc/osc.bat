@@ -1,7 +1,7 @@
 chcp 936 > nul
 setlocal EnableDelayedExpansion
 @echo off
-title 潇然系统优化组件 XRSYS-OSC
+title 鹅鹅鹅OS优化组件 EEEOS-OSC
 cd /d "%~dp0"
 if exist "%systemdrive%\Windows\SysWOW64\wscript.exe" (
     set "PROCESSOR_ARCHITECTURE=AMD64"
@@ -63,7 +63,7 @@ if /i "%SystemDrive%"=="x:" if exist "X:\Windows\System32\PECMD.EXE" (
 )
 
 :mainprogram
-echo 潇然系统盗版提示
+echo 鹅鹅鹅OS盗版提示
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticecaption /t REG_SZ /d "警告：您的系统可能没有部署完整（OSC）" /f
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticetext /t REG_SZ /d "这通常是网络连接不稳定或部署程序BUG导致的，请在点击【确定】登录账户后，访问http://url.xrgzs.top/osc下载、重新运行osc.exe尝试解决。此提示每次登录前都会强制弹出，如有特殊情况请联系我们解决。" /f
 

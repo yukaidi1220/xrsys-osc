@@ -1,7 +1,7 @@
 ﻿Unicode true
 ; 安装程序初始定义常量
-!define PRODUCT_NAME "潇然系统"
-!define PRODUCT_DESC "潇然系统优化组件"
+!define PRODUCT_NAME "鹅鹅鹅OS"
+!define PRODUCT_DESC "鹅鹅鹅OS优化组件"
 ; !define /date PRODUCT_VERSION "3.24.%m.%d"
 !define PRODUCT_PUBLISHER "Xiaoran Studio"
 !define PRODUCT_WEB_SITE "https://xrgzs.github.io/"
@@ -95,11 +95,11 @@ VIAddVersionKey LegalCopyright "Copyright @ 2024 ${PRODUCT_PUBLISHER}. All Right
 VIAddVersionKey InternalName "${PRODUCT_NAME}" ;内部名称
 VIAddVersionKey LegalTrademarks "${PRODUCT_PUBLISHER}" ;合法商标 ;
 VIAddVersionKey OriginalFilename "osc.exe" ;源文件名
-VIAddVersionKey PrivateBuild "XRSYS" ;个人内部版本说明
+VIAddVersionKey PrivateBuild "EEEOS" ;个人内部版本说明
 VIAddVersionKey SpecialBuild "NSIS" ;特殊内部版本说明
 
 
-Section /o "-潇然系统部署接口-部署前" XRAPI1
+Section /o "-鹅鹅鹅OS部署接口-部署前" XRAPI1
   ${If} ${FileExists} "$INSTDIR\xrsysstepapifiles.flag"
     DetailPrint "APIFILES已经解压，跳过此操作！"
   ${Else}
@@ -124,7 +124,7 @@ Section /o "-潇然系统部署接口-部署前" XRAPI1
   ${EndIf}
 SectionEnd
 
-Section /o "-潇然系统部署接口-部署中" XRAPI2
+Section /o "-鹅鹅鹅OS部署接口-部署中" XRAPI2
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi2.flag"
     DetailPrint "API2已经执行，跳过此操作！"
   ${Else}
@@ -138,7 +138,7 @@ Section /o "-潇然系统部署接口-部署中" XRAPI2
 	${EndIf}
 SectionEnd
 
-Section /o "-潇然系统部署接口-部署后" XRAPI3
+Section /o "-鹅鹅鹅OS部署接口-部署后" XRAPI3
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi3.flag"
     DetailPrint "API3已经执行，跳过此操作！"
   ${Else}
@@ -152,7 +152,7 @@ Section /o "-潇然系统部署接口-部署后" XRAPI3
 	${EndIf}
 SectionEnd
 
-Section /o "-潇然系统部署接口-登录时" XRAPI4
+Section /o "-鹅鹅鹅OS部署接口-登录时" XRAPI4
   ${If} ${FileExists} "$INSTDIR\xrsysstepapifiles.flag"
     DetailPrint "APIFILES已经解压，跳过此操作！"
   ${Else}
@@ -177,7 +177,7 @@ Section /o "-潇然系统部署接口-登录时" XRAPI4
 	${EndIf}
 SectionEnd
 
-Section /o "-潇然系统部署接口-进桌面" XRAPI5
+Section /o "-鹅鹅鹅OS部署接口-进桌面" XRAPI5
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi5.flag"
     DetailPrint "API5已经执行，跳过此操作！"
   ${Else}
@@ -233,7 +233,7 @@ SectionGroup "优化设置"
   SectionEnd
 SectionGroupEnd
 
-Section "-潇然系统优化工具" XROSC
+Section "-鹅鹅鹅OS优化工具" EEEOSC
   SetOutPath "$INSTDIR\osc"
   SetOverwrite try
   DetailPrint "解压相关OSC数据..."
@@ -257,27 +257,27 @@ Function .onInit
 	${GetParameters} $0 ;获取传入参数
   ${GetOptions} $0 "/1" $1  ;检查执行XRAPI /1参数
 	IfErrors +3 +1
-	SectionSetFlags ${XROSC} 0
+	SectionSetFlags ${EEEOSC} 0
   SectionSetFlags ${XRAPI1} 1
   
   ${GetOptions} $0 "/2" $1  ;检查执行XRAPI /2参数
 	IfErrors +3 +1
-	SectionSetFlags ${XROSC} 0
+	SectionSetFlags ${EEEOSC} 0
   SectionSetFlags ${XRAPI2} 1
   
   ${GetOptions} $0 "/3" $1  ;检查执行XRAPI /3参数
 	IfErrors +3 +1
-	SectionSetFlags ${XROSC} 0
+	SectionSetFlags ${EEEOSC} 0
   SectionSetFlags ${XRAPI3} 1
   
   ${GetOptions} $0 "/4" $1  ;检查执行XRAPI /4参数
 	IfErrors +3 +1
-	SectionSetFlags ${XROSC} 0
+	SectionSetFlags ${EEEOSC} 0
   SectionSetFlags ${XRAPI4} 1
   
   ${GetOptions} $0 "/5" $1  ;检查执行XRAPI /5参数
 	IfErrors +3 +1
-	SectionSetFlags ${XROSC} 0
+	SectionSetFlags ${EEEOSC} 0
   SectionSetFlags ${XRAPI5} 1
   
 FunctionEnd

@@ -75,7 +75,7 @@ jobs:
         choco install nsis -y
 
     # 执行 build.ps1 脚本：下载依赖文件、校验哈希、调用 NSIS 编译安装包
-    - name: 构建 XROSC
+    - name: 构建 EEEOSC
       shell: pwsh
       env:
         GITHUB_WORKFLOW_VERSION: ${{ steps.generate_version.outputs.version }}
@@ -93,7 +93,7 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ steps.generate_version.outputs.version }}          # Git 标签名
-        name: XRSYS-OSC v${{ steps.generate_version.outputs.version }}    # Release 标题
+        name: EEEOS-OSC v${{ steps.generate_version.outputs.version }}    # Release 标题
         draft: false                                                       # 非草稿
         prerelease: true                                                   # 标记为预发布版本
         generate_release_notes: true                                       # 自动生成发布说明

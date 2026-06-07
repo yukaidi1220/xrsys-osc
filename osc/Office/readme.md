@@ -1,4 +1,4 @@
-# 潇然系统 Microsoft Office ISO 自动安装器
+# 鹅鹅鹅OS Microsoft Office ISO 自动安装器
 
 自动安装 Microsoft Office VL ISO 镜像并自动激活，支持 Microsoft Office 2007-最新版、MSI 和 C2R 类型、MSDN 原版和第三方升级版，具体支持的版本取决于配置文件（config 目录下的 xml 文件）。
 
