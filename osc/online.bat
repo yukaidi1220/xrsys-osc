@@ -81,21 +81,21 @@ for %%b in (%SystemDrive%\Windows\Setup\Run\2\*.reg) do (
 
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
-        if exist "%%a:\Xiaoran\OSC\api2.bat" (
+        if exist "%%a:\EEEOS\OSC\api2.bat" (
             echo [OSC]正在应用搜到的DIY接口%%a:\~\api2.bat...>"%systemdrive%\Windows\Setup\wallname.txt"
-            start "" /max /wait "%%a:\Xiaoran\OSC\api2.bat"
+            start "" /max /wait "%%a:\EEEOS\OSC\api2.bat"
         )
-        for %%b in (%%a:\Xiaoran\OSC\2\*.exe) do (
+        for %%b in (%%a:\EEEOS\OSC\2\*.exe) do (
             echo [OSC]正在运行搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /S
             del /f /q "%%b"
         )
-        for %%b in (%%a:\Xiaoran\OSC\2\*.msi) do (
+        for %%b in (%%a:\EEEOS\OSC\2\*.msi) do (
             echo [OSC]正在安装搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /passive /qb-! /norestart
             del /f /q "%%b"
         )
-        for %%b in (%%a:\Xiaoran\OSC\2\*.reg) do (
+        for %%b in (%%a:\EEEOS\OSC\2\*.reg) do (
             echo [OSC]正在应用搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             regedit /s "%%b"
             del /f /q "%%b"

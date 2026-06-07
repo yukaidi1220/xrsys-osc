@@ -132,7 +132,7 @@ if exist "%SystemDrive%\Windows\Setup\xrsysextendd.txt" (
 if exist api1_bsq.bat call api1_bsq.bat
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
-        if exist "%%a:\Xiaoran\API\api1_bsq.bat" echo y | start "" /max /wait "%%a:\Xiaoran\API\api1_bsq.bat"
+        if exist "%%a:\EEEOS\API\api1_bsq.bat" echo y | start "" /max /wait "%%a:\EEEOS\API\api1_bsq.bat"
     )
 )
 echo [API]正在等待windeploy进入下一个阶段...>"%systemdrive%\Windows\Setup\wallname.txt"
@@ -295,21 +295,21 @@ if exist api2_bsz.bat (
 )
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
-        if exist "%%a:\Xiaoran\API\api2_bsz.bat" (
+        if exist "%%a:\EEEOS\API\api2_bsz.bat" (
             echo [API]正在应用DIY接口%%a:\~\api2_bsz.bat...>"%systemdrive%\Windows\Setup\wallname.txt"
-            echo y | start "" /max /wait "%%a:\Xiaoran\API\api2_bsz.bat"
+            echo y | start "" /max /wait "%%a:\EEEOS\API\api2_bsz.bat"
         )
-        for %%b in (%%a:\Xiaoran\API\InDeploy\*.exe) do (
+        for %%b in (%%a:\EEEOS\API\InDeploy\*.exe) do (
             echo [API]正在部署中应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /S
             del /f /q "%%b"
         )
-        for %%b in (%%a:\Xiaoran\API\InDeploy\*.msi) do (
+        for %%b in (%%a:\EEEOS\API\InDeploy\*.msi) do (
             echo [API]正在部署中应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /passive /qb-! /norestart
             del /f /q "%%b"
         )
-        for %%b in (%%a:\Xiaoran\API\InDeploy\*.reg) do (
+        for %%b in (%%a:\EEEOS\API\InDeploy\*.reg) do (
             echo [API]正在部署中应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             regedit /s "%%b"
             del /f /q "%%b"
@@ -368,8 +368,8 @@ echo [API]正在应用DIY接口api3_bsh.bat...>"%systemdrive%\Windows\Setup\wallname.t
 if exist api3_bsh.bat call api3_bsh.bat
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
-        if exist "%%a:\Xiaoran\API\api3_bsh.bat" (
-            echo y | start "" /max /wait "%%a:\Xiaoran\API\api3_bsh.bat"
+        if exist "%%a:\EEEOS\API\api3_bsh.bat" (
+            echo y | start "" /max /wait "%%a:\EEEOS\API\api3_bsh.bat"
         )
     )
 )
@@ -417,8 +417,8 @@ for %%a in (Login\*.reg) do (
 if exist api4_dls.bat call api4_dls.bat
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
-        if exist "%%a:\Xiaoran\API\api4_dls.bat" (
-            echo y | start "" /max /wait "%%a:\Xiaoran\API\api4_dls.bat"
+        if exist "%%a:\EEEOS\API\api4_dls.bat" (
+            echo y | start "" /max /wait "%%a:\EEEOS\API\api4_dls.bat"
         )
     )
 )
@@ -514,20 +514,20 @@ echo [API]正在应用DIY接口api5_jzm.bat...>"%systemdrive%\Windows\Setup\wallname.t
 if exist api5_jzm.bat call api5_jzm.bat
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
-        if exist "%%a:\Xiaoran\API\api5_jzm.bat" (
-            echo y | start "" /max /wait "%%a:\Xiaoran\API\api5_jzm.bat"
+        if exist "%%a:\EEEOS\API\api5_jzm.bat" (
+            echo y | start "" /max /wait "%%a:\EEEOS\API\api5_jzm.bat"
         )
-        for %%b in (%%a:\Xiaoran\API\Run\*.exe) do (
+        for %%b in (%%a:\EEEOS\API\Run\*.exe) do (
             echo [API]正在桌面环境下应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /S
             del /f /q "%%b"
         )
-        for %%b in (%%a:\Xiaoran\API\Run\*.msi) do (
+        for %%b in (%%a:\EEEOS\API\Run\*.msi) do (
             echo [API]正在桌面环境下应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /passive /qb-! /norestart
             del /f /q "%%b"
         )
-        for %%b in (%%a:\Xiaoran\API\Run\*.reg) do (
+        for %%b in (%%a:\EEEOS\API\Run\*.reg) do (
             echo [API]正在桌面环境下应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             regedit /s "%%b"
             del /f /q "%%b"

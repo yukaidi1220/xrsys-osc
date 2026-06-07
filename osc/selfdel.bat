@@ -79,7 +79,7 @@ rd /s /q "%SystemDrive%\soft"
 attrib -s -h -r "%SystemDrive%\wandrv" /D
 rd /s /q "%SystemDrive%\wandrv"
 
-rem delete cxsoft xiaoranosc heu...
+rem delete cxsoft eeeosc heu...
 del /f /s /q "%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Startup\*.vbs"
 del /f /q "%SystemDrive%\Windows\Setup\oscrunstate.txt"
 del /f /q "%SystemDrive%\Windows\Setup\xrsyspasswd.txt"

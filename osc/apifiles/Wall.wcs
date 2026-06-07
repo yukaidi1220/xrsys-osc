@@ -61,7 +61,7 @@ _SUB DRAW
         FIND explorer.exe,CALL WBTN
     }
     // PE调试时显示最小化按钮
-    IFEX x:\Windows\Xiaoran.ico,CALL WBTN
+    IFEX x:\Windows\EEEOS.ico,CALL WBTN
     // 副标题显示镜像信息
     READ "%SystemDrive%\Windows\Version.txt",1,EEEOSVER
     IFEX ! |%EEEOSVER%=,ENVI @LABE2=%EEEOSVER%

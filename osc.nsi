@@ -3,7 +3,7 @@
 !define PRODUCT_NAME "鹅鹅鹅OS"
 !define PRODUCT_DESC "鹅鹅鹅OS优化组件"
 ; !define /date PRODUCT_VERSION "3.24.%m.%d"
-!define PRODUCT_PUBLISHER "Xiaoran Studio"
+!define PRODUCT_PUBLISHER "EEE"
 !define PRODUCT_WEB_SITE "https://xrgzs.github.io/"
 !define PRODUCT_VERSION "${CUSTOM_VERSION}"
 

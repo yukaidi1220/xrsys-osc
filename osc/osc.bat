@@ -142,15 +142,15 @@ if exist wandrv2.iso (
 )
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
-        if exist "%%a:\Xiaoran\OSC\DriverBackup.7z" (
+        if exist "%%a:\EEEOS\OSC\DriverBackup.7z" (
             echo [OSC]正在导入搜到的驱动备份%%a:\~\DriverBackup.7z...>"%systemdrive%\Windows\Setup\wallname.txt"
-            start "" /wait "%drvindex%" -b "%%a:\Xiaoran\OSC\DriverBackup.7z"
+            start "" /wait "%drvindex%" -b "%%a:\EEEOS\OSC\DriverBackup.7z"
         )
-        if exist "%%a:\Xiaoran\OSC\wandrv.iso" (
+        if exist "%%a:\EEEOS\OSC\wandrv.iso" (
             echo [OSC]正在应用搜到的万能驱动%%a:\~\wandrv.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
-            copy /y "%~dp0apifiles\DriveCleaner.exe" "%%a:\Xiaoran\OSC\DriveCleaner.exe"
-            start "" /wait "%%a:\Xiaoran\OSC\DriveCleaner.exe" /wandrv
-            echo %%a:\Xiaoran\OSC\wandrv.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
+            copy /y "%~dp0apifiles\DriveCleaner.exe" "%%a:\EEEOS\OSC\DriveCleaner.exe"
+            start "" /wait "%%a:\EEEOS\OSC\DriveCleaner.exe" /wandrv
+            echo %%a:\EEEOS\OSC\wandrv.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
         )
     )
 )
@@ -225,8 +225,8 @@ endlocal
 echo 还原备份的WIFI密码
 if %osver% GEQ 2 (
     for %%a in (C D E F G H) do (
-        if exist "%%a:\Xiaoran\WLANPassword\*.xml" (
-            FORFILES /P "%%a:\Xiaoran\WLANPassword" /M *.xml /C "cmd /c netsh wlan add profile filename=@path"
+        if exist "%%a:\EEEOS\WLANPassword\*.xml" (
+            FORFILES /P "%%a:\EEEOS\WLANPassword" /M *.xml /C "cmd /c netsh wlan add profile filename=@path"
         )
         if exist "%%a:\WLANPassword\*.xml" (
             FORFILES /P "%%a:\WLANPassword" /M *.xml /C "cmd /c netsh wlan add profile filename=@path"
@@ -237,7 +237,7 @@ if %osver% GEQ 2 (
         if "%%i"=="GUID:" (
             set GUID=%%j
             for %%a in (C D E F G H) do (
-                for %%b in ("%%a:\Xiaoran\WLANPassword\*.xml") DO (
+                for %%b in ("%%a:\EEEOS\WLANPassword\*.xml") DO (
                     %wlan% sp !GUID! "%%b"
                 )
             )
@@ -346,21 +346,21 @@ for %%b in (%SystemDrive%\Windows\Setup\Run\1\*.reg) do (
 )
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
-        if exist "%%a:\Xiaoran\OSC\api1.bat" (
+        if exist "%%a:\EEEOS\OSC\api1.bat" (
             echo [OSC]正在应用搜到的DIY接口%%a:\~\api1.bat...>"%systemdrive%\Windows\Setup\wallname.txt"
-            echo y | start "" /max /wait "%%a:\Xiaoran\OSC\api1.bat"
+            echo y | start "" /max /wait "%%a:\EEEOS\OSC\api1.bat"
         )
-        for %%b in (%%a:\Xiaoran\OSC\1\*.exe) do (
+        for %%b in (%%a:\EEEOS\OSC\1\*.exe) do (
             echo [OSC]正在运行搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /S
             del /f /q "%%b"
         )
-        for %%b in (%%a:\Xiaoran\OSC\1\*.msi) do (
+        for %%b in (%%a:\EEEOS\OSC\1\*.msi) do (
             echo [OSC]正在安装搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /passive /qb-! /norestart
             del /f /q "%%b"
         )
-        for %%b in (%%a:\Xiaoran\OSC\1\*.reg) do (
+        for %%b in (%%a:\EEEOS\OSC\1\*.reg) do (
             echo [OSC]正在应用搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             regedit /s "%%b"
             del /f /q "%%b"

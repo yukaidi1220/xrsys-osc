@@ -52,7 +52,7 @@ if not exist "%officeiso%" (
 )
 if "%officeverarch%"=="x64" set officeverarch=AMD64
 :main
-title Office %officever% Installer By Xiaoran Studio
+title Office %officever% Installer By EEE
 
 :readosver
 cls

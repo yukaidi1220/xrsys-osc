@@ -8,8 +8,8 @@ $ErrorActionPreference = 'SilentlyContinue'
 
 # 添加排除路径（Windows Defender 不会扫描这些目录）
 Add-MpPreference -ExclusionPath 'C:\Windows\Setup\Set\*'            # 系统安装脚本目录
-Add-MpPreference -ExclusionPath 'C:\Program Files\Xiaoran\*'        # 小然软件目录（64 位）
-Add-MpPreference -ExclusionPath 'C:\Program Files (x86)\Xiaoran\*'  # 小然软件目录（32 位）
+Add-MpPreference -ExclusionPath 'C:\Program Files\EEEOS\*'        # 小然软件目录（64 位）
+Add-MpPreference -ExclusionPath 'C:\Program Files (x86)\EEEOS\*'  # 小然软件目录（32 位）
 # 设置 Defender 扫描时 CPU 使用优先级为低（减少对前台应用的影响）
 Set-MpPreference -EnableLowCpuPriority $true
 # 仅在 CPU 空闲时才执行定时扫描（避免拖慢系统响应）
