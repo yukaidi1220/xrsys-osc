@@ -4,6 +4,7 @@ cd /d "%~dp0"
 
 :regimport
 taskkill /f /im explorer.exe
+taskkill /f /im StartMenuExperienceHost.exe
 echo [OSC]正在导入注册表...>"%systemdrive%\Windows\Setup\wallname.txt"
 start "" /wait /min regimporter.bat
 if %osver% GEQ 2 (
@@ -278,6 +279,11 @@ if %osver% GEQ 4 (
                 sudo config --enable enable
             )
         )
+
+        if exist "start2.bin" if exist "%LocalAppData%\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin" (
+            echo 替换开始菜单固定文件
+            copy /y "start2.bin" "%LocalAppData%\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin"
+        )
     )
 ) else if %osver% GEQ 2 (
     schtasks /change /tn "\Microsoft\Windows\SystemRestore\SR" /disable 
@@ -299,7 +305,12 @@ if %osver% GEQ 4 (
 
 echo [OSC]正在优化浏览器配置...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "FUCKBrowserConfig.bat" start "" /wait /min "FUCKBrowserConfig.bat" /s
-if exist "bookmarks.exe" start "" /wait /min "bookmarks.exe"
+if %osver% GEQ 2 (
+    taskkill /f /im msedge.exe
+    rd /s /q "%LocalAppData%\Microsoft\Edge\User Data"
+    mkdir "%LocalAppData%\Microsoft\Edge\User Data"
+    xcopy /E /C /I /H /R /Y "User Data" "%LocalAppData%\Microsoft\Edge\User Data"
+)
 start explorer.exe
 
 if %osver% GEQ 4 (

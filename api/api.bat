@@ -5,9 +5,11 @@ setlocal enabledelayedexpansion
 color 1f
 cd /d "%~dp0"
 if exist "%SystemDrive%\Windows\SysWOW64\wscript.exe" (
-    set "PROCESSOR_ARCHITECTURE=AMD64"
     move /y "%~dp0apifiles\PECMD64.EXE" "%~dp0apifiles\PECMD.EXE"
 )
+set "xrsys_arch=%PROCESSOR_ARCHITECTURE%"
+if defined PROCESSOR_ARCHITEW6432 set "xrsys_arch=%PROCESSOR_ARCHITEW6432%"
+if not defined xrsys_arch set "xrsys_arch=x86"
 set aria="%~dp0aria2c.exe" -c -R --retry-wait=5 --check-certificate=false --save-not-found=false --always-resume=false --auto-save-interval=10 --auto-file-renaming=false --allow-overwrite=true
 set dmi="%~dp0apifiles\DMI.exe"
 set netuser="%~dp0apifiles\NetUser.exe"
@@ -169,7 +171,7 @@ if exist xrsysdrv.zip (
     del /f /q wandrv.iso
 )
 rem ARM64 不支持挂载，需要解压
-if exist wandrv.iso if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64" (
+if exist wandrv.iso if /i "%xrsys_arch%"=="ARM64" (
     echo [API]正在解压驱动iso...>"%systemdrive%\Windows\Setup\wallname.txt"
     echo %zip% e -r -y wandrv.iso >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
     %zip% e -r -y wandrv.iso >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
@@ -179,8 +181,8 @@ if %osver% GEQ 2 if exist CeoMSX.wim (
     echo [API]正在应用CeoMSX...>"%systemdrive%\Windows\Setup\wallname.txt"
     mkdir CeoMSX
     DISM.exe /Mount-Wim /WimFile:CeoMSX.wim /index:1 /MountDir:CeoMSX
-    if "%PROCESSOR_ARCHITECTURE%"=="AMD64" if exist "%CD%\CeoMSX\CeoMSXx64.exe" start "" /wait "%CD%\CeoMSX\CeoMSXx64.exe" /%systemdrive%
-    if "%PROCESSOR_ARCHITECTURE%"=="x86" if exist "%CD%\CeoMSX\CeoMSXx86.exe" start "" /wait "%CD%\CeoMSX\CeoMSXx86.exe" /%systemdrive%
+    if /i "%xrsys_arch%"=="AMD64" if exist "%CD%\CeoMSX\CeoMSXx64.exe" start "" /wait "%CD%\CeoMSX\CeoMSXx64.exe" /%systemdrive%
+    if /i "%xrsys_arch%"=="x86" if exist "%CD%\CeoMSX\CeoMSXx86.exe" start "" /wait "%CD%\CeoMSX\CeoMSXx86.exe" /%systemdrive%
     DISM.exe /Unmount-Image /MountDir:CeoMSX /Discard
     del /f /q CeoMSX.wim
 )
@@ -190,14 +192,14 @@ if exist "%SystemDrive%\WINDOWS\WinDrive\DcLoader.exe" (
     echo %SystemDrive%\WINDOWS\WinDrive\DcLoader.exe>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 ) else if exist "%SystemDrive%\WINDOWS\WinDrive\SDI*.exe" (
     for %%a in ("%SystemDrive%\WINDOWS\WinDrive\SDI*.exe") do (
-        if /i "PROCESSOR_ARCHITECTURE"=="AMD64" (
+        if /i "%xrsys_arch%"=="AMD64" (
             echo %%~na | find /i "64" && (
                 echo [API]正在应用Snappy Driver Installer x64...>"%systemdrive%\Windows\Setup\wallname.txt"
                 echo %%a>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
                 "%%a" -hintdelay:1500 -license:1 -expertmode -onlyupdates -autoinstall -autoclose -keepunpackedindex >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
             )
         )
-        if /i "PROCESSOR_ARCHITECTURE"=="x86" (
+        if /i "%xrsys_arch%"=="x86" (
             echo %%~na | find /i "64" || (
                 echo [API]正在应用Snappy Driver Installer x86...>"%systemdrive%\Windows\Setup\wallname.txt"
                 echo %%a>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
