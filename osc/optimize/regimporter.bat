@@ -17,7 +17,7 @@ set regedit_name=%random%
 copy /y "%SystemDrive%\Windows\System32\reg.exe" "%~dp0\%reg_name%.exe"
 copy /y "%SystemDrive%\Windows\regedit.exe" "%~dp0\%regedit_name%.exe"
 if exist "%SystemDrive%\Windows\System32\drivers\ucpd.sys" (
-    echo Á¶ÅÁî® UCPD È©±Âä®
+    echo Ω˚”√ UCPD «˝∂Ø
     sc stop ucpd
     sc config ucpd start= disabled
     schtasks /delete /tn "\Microsoft\Windows\AppxDeploymentClient\UCPD velocity" /f
