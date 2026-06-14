@@ -96,18 +96,22 @@ jobs:
     #     Set-Location "C:\Program Files\Cloudflare\Cloudflare WARP"
     #     .\warp-cli.exe disconnect
 
-    # 将构建产物（安装包、版本文件、校验文件）上传为 GitHub Artifact
-    - name: 上传构建产物
-      uses: actions/upload-artifact@v6
+    # 创建 GitHub Release 并上传构建产物作为发布资源（自动发 release，设为最新版本）
+    - name: 创建发布并上传资源
+      uses: softprops/action-gh-release@v2
       with:
-        name: EEEOS_OSC_开发版_v${{ steps.generate_version.outputs.version }}
+        tag_name: v${{ steps.generate_version.outputs.version }}          # Git 标签名
+        name: EEEOS-OSC v${{ steps.generate_version.outputs.version }}    # Release 标题
+        draft: false                                                       # 非草稿
+        prerelease: false                                                  # 标记为最新版本
+        generate_release_notes: true                                       # 自动生成发布说明
+        token: ${{ secrets.MY_TOKEN }}                                     # 使用自定义 Token（需要写权限）
         # osc.exe       — NSIS 编译生成的安装包
         # osc.exe.ver   — 版本号文件
         # osc.exe.sha256 — SHA256 校验文件
         # osc.exe.md5   — MD5 校验文件
-        path: |
+        files: |
             osc.exe
             osc.exe.ver
             osc.exe.sha256
             osc.exe.md5
-        compression-level: 0  # 不压缩（安装包本身已压缩）
