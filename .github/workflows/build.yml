@@ -4,6 +4,8 @@ name: 开发版构建
 on:
   workflow_dispatch:   # 支持手动触发
   push:
+    branches:          # 仅分支推送时触发，标签推送不触发（避免打 Release 标签后死循环）
+      - '**'
     paths-ignore:      # 以下文件变更时不触发构建
       - '.github/**'   # 工作流文件本身的变更
       - '*.md'         # 文档文件的变更
