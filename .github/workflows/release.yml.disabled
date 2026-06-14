@@ -2,7 +2,7 @@
 name: 构建并发布
 
 on:
-  # workflow_dispatch:   # 仅手动触发（避免意外发布）—— 已临时禁用
+  workflow_dispatch:   # 仅手动触发（避免意外发布）
 
 jobs:
   build:
