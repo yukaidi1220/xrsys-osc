@@ -117,9 +117,9 @@ if (Test-Path 'osc\xrsoft.exe') {
 else {
     # 下载所需文件（KMS 激活工具、HEU 激活工具、主程序、TSforge 激活脚本）
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/iy02F3ppu8mj" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
-    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/3380523d9ee1fbc12a84e5a5b7994890.cmd" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
+    #  Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/3380523d9ee1fbc12a84e5a5b7994890.cmd" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/iDhqm3ppuagf" -OutFile "osc\xrkms\HEU.exe"
-    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/11c1b3885cf104fa5bef53d571e5156d.exe" -OutFile "osc\xrkms\HEU.exe"
+    #  Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/11c1b3885cf104fa5bef53d571e5156d.exe" -OutFile "osc\xrkms\HEU.exe"
     # Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iqnTr2wxjufc" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/e68b8f58127b7680debf16b120cad91a.exe" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
@@ -131,7 +131,7 @@ else {
 
 # 验证已下载文件的 SHA256 哈希值，确保文件完整且未被篡改
 Test-SHA256 -Hashes @{
-    "osc\xrkms\KMS_VL_ALL_AIO.cmd" = "CEE80B2DE0CA33BE709C33E6725E81D28FC366565211B4E1D996951512AA0049"
+    "osc\xrkms\KMS_VL_ALL_AIO.cmd" = "30034802D6F3D7B022E9BCD4B9EE6911755F2058B87E8FE75C4228E60C9F0A1B"
     "osc\xrkms\HEU.exe"            = "DBE10240FC4841A60410DF3EE1704487F43A8E19158AEA99DDD8EA214BAB23B6"
     "osc\xrsoft.exe"               = "9C863AE73272D7470D0BC48CB1E70D5B3172FEDF532CB14ECE502718726A220E"
 }
