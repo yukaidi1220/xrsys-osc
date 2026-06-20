@@ -2,7 +2,7 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.26.5.18
+set ver=智能优化工具 V3.26.5.18
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
@@ -15,11 +15,11 @@ goto main
 cls
 title %ver% - 自购授权需求询问（请勿关闭此窗口）
 if defined wbox (
-    %wbox% "自购授权需求询问" "即将智能激活系统，^如果您需要使用自购的授权，^请在10s内做出选择！" "智能激活 -$- ;取消激活" /TM=15 /FS=12
+    %wbox% "自购授权需求询问" "即将智能优化系统，^如果您需要使用自购的授权，^请在10s内做出选择！" "智能优化 -$- ;取消优化" /TM=15 /FS=12
     echo !errorlevel!
     if "!errorlevel!"=="2" exit
 ) else (
-    echo 即将激活系统，如果您需要使用自购的授权，请在5s内关掉此窗口！
+    echo 即将优化系统，如果您需要使用自购的授权，请在5s内关掉此窗口！
     timeout -t 5 2>nul || ping 127.0.0.1 -n 5 >nul
 )
 
@@ -41,7 +41,7 @@ ver | find /i "10.0." > nul && set osver=4
 :: KMS服务器，来自互联网
 set serverlist=kms.03k.org kms.000606.xyz kms.ghpym.com kms.lotro.cc kms.sixyin.com kms.loli.best
 
-:: Windows激活
+:: Windows优化
 set iswindows=1
 set iswtsesu=0
 set iswts=1
@@ -50,7 +50,7 @@ set isoem=0
 set isdigital=0
 set isentg=0
 
-:: Office激活
+:: Office优化
 set isoffice=0
 set isnewoffice=0
 set isots=1
@@ -58,7 +58,7 @@ set isohk=0
 set officepath=
 
 echo 正在检测并设置优化方案...
-echo 正在检测并设置激活方案... >>"%xrkmslogfile%"
+echo 正在检测并设置优化方案... >>"%xrkmslogfile%"
 
 call :isWinActivated
 if %errorlevel% EQU 0 set iswindows=0
@@ -98,30 +98,30 @@ echo 正在测试您的电脑是否能够连接到Internet...
 ping www.taobao.com -n 1 >nul
 if %errorlevel% NEQ 0 (
     echo 您的电脑不能够连接到Internet，即将为您本地优化
-    echo 您的电脑不能够连接到Internet，即将为您本地激活 >>"%xrkmslogfile%"
+    echo 您的电脑不能够连接到Internet，即将为您本地优化 >>"%xrkmslogfile%"
     goto offline
 )
 echo 您的电脑能够连接到Internet，即将为您在线优化
 for %%s in (%serverlist%) do (
-    echo 正在测试您的电脑是否能与激活服务器%%s连接...
+    echo 正在测试您的电脑是否能与优化服务器%%s连接...
     vlmcs.exe -l 1 %%s 2>nul | find /i "successful" 1>nul 2>nul && (
         echo 您的电脑能与服务器连接，即将为您在线优化
-        echo 您的电脑能与激活服务器%%s连接，即将为您在线激活 >>"%xrkmslogfile%"
+        echo 您的电脑能与优化服务器%%s连接，即将为您在线优化 >>"%xrkmslogfile%"
         set server=%%s
         goto online
     )
     echo 您的电脑不能与服务器连接，尝试下一个服务器...
-    echo 您的电脑不能与激活服务器%%s连接，尝试下一个服务器... >>"%xrkmslogfile%"
+    echo 您的电脑不能与优化服务器%%s连接，尝试下一个服务器... >>"%xrkmslogfile%"
 )
-echo 您的电脑不能与激活服务器连接，即将为您本地优化
-echo 您的电脑不能与激活服务器连接，即将为您本地激活 >>"%xrkmslogfile%"
+echo 您的电脑不能与优化服务器连接，即将为您本地优化
+echo 您的电脑不能与优化服务器连接，即将为您本地优化 >>"%xrkmslogfile%"
 goto offline
 
 :offline
 cls
 title %ver% - 离线优化（请勿关闭此窗口）
 echo 正在离线优化系统，请稍候...
-echo 正在离线激活系统，请稍候... >>"%xrkmslogfile%"
+echo 正在离线优化系统，请稍候... >>"%xrkmslogfile%"
 >Set.ini echo [Smart]
 >>Set.ini echo HWID=0
 >>Set.ini echo OHook=0
@@ -132,12 +132,12 @@ goto afteract
 cls
 title %ver% - 在线优化（请勿关闭此窗口）
 echo 正在在线优化系统，请稍候...
-echo 正在在线激活系统，请稍候... >>"%xrkmslogfile%"
+echo 正在在线优化系统，请稍候... >>"%xrkmslogfile%"
 call :runKVA
 call :isWinActivated
 if %errorlevel% EQU 0 goto afteract
 echo 正在进一步优化系统，请稍候...
-echo 正在进一步激活系统，请稍候... >>"%xrkmslogfile%"
+echo 正在进一步优化系统，请稍候... >>"%xrkmslogfile%"
 >Set.ini echo [Smart]
 >>Set.ini echo OHook=0
 >>Set.ini echo OfficeTSForge=0
@@ -152,7 +152,7 @@ echo 正在进行后续处理，请稍候...
 echo 正在进行后续处理，请稍候... >>"%xrkmslogfile%"
 if "%iswtsesu%"=="1" (
    echo 正在处理 Windows ESU...
-   echo 正在激活 Windows ESU... >>"%xrkmslogfile%"
+   echo 正在优化 Windows ESU... >>"%xrkmslogfile%"
    call :runTS /Z-ESU
 )
 goto exit
@@ -240,23 +240,23 @@ set iswindows=1
 goto :eof
 
 :isWinActivated -> errorlevel EQU 0 ? true : false
-:: XP 不激活 Windows
+:: XP 不优化 Windows
 if %osver% EQU 1 (
     set errorlevel=0
     goto :eof
 )
 echo 正在检测Windows状态...
-echo 正在检测Windows激活状态... >>"%xrkmslogfile%"
+echo 正在检测Windows优化状态... >>"%xrkmslogfile%"
 if not exist "%SystemDrive%\Windows\System32\wbem\WMIC.exe" (
     echo 未找到WMIC！
     echo 未找到WMIC！ >>"%xrkmslogfile%"
     if exist "%SystemDrive%\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" (
         echo 正在尝试使用PowerShell检测Windows状态...
-        echo 正在尝试使用PowerShell检测Windows激活状态... >>"%xrkmslogfile%"
+        echo 正在尝试使用PowerShell检测Windows优化状态... >>"%xrkmslogfile%"
        goto :isWinActivatedPS
     ) else (
         echo 无法检测Windows状态，缺少WMIC和PowerShell！
-        echo 无法检测Windows激活状态，缺少WMIC和PowerShell！ >>"%xrkmslogfile%"
+        echo 无法检测Windows优化状态，缺少WMIC和PowerShell！ >>"%xrkmslogfile%"
         set errorlevel=0
     )
 )
@@ -264,27 +264,27 @@ set LicenseStatus=
 for /f "tokens=2 delims==" %%a in ('wmic path SoftwareLicensingProduct where "Name like 'Windows%%' and PartialProductKey is not null" get LicenseStatus /value 2^>nul ^| find "="') do set "LicenseStatus=%%a"
 if "%LicenseStatus%"=="1" (
     echo Windows已优化
-    echo Windows已激活 >>"%xrkmslogfile%"
+    echo Windows已优化 >>"%xrkmslogfile%"
     set errorlevel=0
 ) else (
-    echo Windows未激活
-    echo Windows未激活 >>"%xrkmslogfile%"
+    echo Windows未优化
+    echo Windows未优化 >>"%xrkmslogfile%"
     set errorlevel=1
 )
 goto :eof
 
 :isWinActivatedPS -> errorlevel EQU 0 ? true : false
 echo 正在使用PowerShell检测Windows状态...
-echo 正在使用PowerShell检测Windows激活状态... >>"%xrkmslogfile%"
+echo 正在使用PowerShell检测Windows优化状态... >>"%xrkmslogfile%"
 set LicenseStatus=
 for /f "tokens=*" %%a in ('powershell -NoLogo -NoProfile -Command "(Get-CimInstance -Class SoftwareLicensingProduct -Filter 'Name like ''Windows%%'' and PartialProductKey is not null').LicenseStatus" 2^>nul') do set "LicenseStatus=%%a"
 if "%LicenseStatus%"=="1" (
     echo Windows已优化
-    echo Windows已激活 >>"%xrkmslogfile%"
+    echo Windows已优化 >>"%xrkmslogfile%"
     set errorlevel=0
 ) else (
-    echo Windows未激活
-    echo Windows未激活 >>"%xrkmslogfile%"
+    echo Windows未优化
+    echo Windows未优化 >>"%xrkmslogfile%"
     set errorlevel=1
 )
 goto :eof
@@ -295,15 +295,15 @@ if not defined officepath (
     goto :eof
 )
 echo 正在检测Office优化状态...
-echo 正在检测Office激活状态... >>"%xrkmslogfile%"
+echo 正在检测Office优化状态... >>"%xrkmslogfile%"
 (cscript.exe //nologo "%officepath%\OSPP.VBS" /dstatus | find /i "LICENSE STATUS:  ---LICENSED---") >>"%xrkmslogfile%"
 if %errorlevel% EQU 0 (
-    echo Office未激活
-    echo Office未激活 >>"%xrkmslogfile%"
+    echo Office未优化
+    echo Office未优化 >>"%xrkmslogfile%"
     set errorlevel=1
 ) else (
     echo Office已优化
-    echo Office已激活 >>"%xrkmslogfile%"
+    echo Office已优化 >>"%xrkmslogfile%"
     set errorlevel=0
 )
 goto :eof
