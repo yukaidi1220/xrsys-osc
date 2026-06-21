@@ -226,11 +226,6 @@ SectionGroup "优化设置"
     FileOpen $0 "$WINDIR\Setup\xrsysnopcname.txt" w
     FileClose $0
   SectionEnd
-  Section /o "禁用上报安装信息"
-    DetailPrint "正在输出TAG-xrsysnoupdata..."
-    FileOpen $0 "$WINDIR\Setup\xrsysnoupdata.txt" w
-    FileClose $0
-  SectionEnd
 SectionGroupEnd
 
 Section "-鹅鹅鹅OS优化工具" EEEOSC
