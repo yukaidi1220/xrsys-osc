@@ -10,6 +10,7 @@ REM ===========================================================
 title 鹅鹅鹅OS优化组件osc.exe——软件安装脚本
 
 call "%~dp0..\common\env.bat" OSC
+cd /d "%~dp0"
 setlocal enabledelayedexpansion
 taskkill /f /im msedge.exe
 
