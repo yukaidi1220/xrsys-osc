@@ -158,14 +158,14 @@ function Invoke-UnpinTaskbarCOM {
 function Suspend-PECMDWindow {
     <#
     .SYNOPSIS
-        找到潇然部署背景 PECMD 窗口，取消置顶并尝试最小化，
+        找到鹅鹅鹅OS部署背景 PECMD 窗口，取消置顶并尝试最小化，
         确保任务栏可交互。
         注意：最小化只是附加优化，核心保障是取消置顶 + 焦点管理。
     .RETURNS
         成功返回 @{ Hwnd; WasMinimized }，失败返回 $null
     #>
 
-    $hwnd = [Win32]::FindWindow([NullString]::Value, "潇然系统部署背景插件")
+    $hwnd = [Win32]::FindWindow([NullString]::Value, "鹅鹅鹅OS部署背景插件")
 
     if ($hwnd -eq [IntPtr]::Zero) {
         $hwnd = [Win32]::FindWindow("PECMD", [NullString]::Value)
