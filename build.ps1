@@ -1,4 +1,4 @@
-# 要求 PowerShell 7 或更高版本运行
+﻿# 要求 PowerShell 7 或更高版本运行
 #Requires -Version 7
 # 遇到错误时立即终止脚本（严格模式）
 $ErrorActionPreference = 'Stop'
@@ -121,7 +121,7 @@ else {
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/iDhqm3ppuagf" -OutFile "osc\xrkms\HEU.exe"
     #  Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/11c1b3885cf104fa5bef53d571e5156d.exe" -OutFile "osc\xrkms\HEU.exe"
     # Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iqnTr2wxjufc" -OutFile "osc\xrsoft.exe"
-    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/e68b8f58127b7680debf16b120cad91a.exe" -OutFile "osc\xrsoft.exe"
+    Invoke-RobustRequest -Uri "https://file.icve.com.cn/file_doc/574/665/8FBA67441509BFD9618F74A1283E1449.exe" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
 
     # 下载其他文件（在线配置和软件列表）
@@ -139,7 +139,7 @@ if (-not (Test-Path 'osc\aria2c.exe')) {
 Test-SHA256 -Hashes @{
     "osc\xrkms\KMS_VL_ALL_AIO.cmd" = "30034802D6F3D7B022E9BCD4B9EE6911755F2058B87E8FE75C4228E60C9F0A1B"
     "osc\xrkms\HEU.exe"            = "663280ECAFEEC1E7EDE1B0B669FD9F640F3836F88620C8225EBD27B1FA16239D"
-    "osc\xrsoft.exe"               = "9C863AE73272D7470D0BC48CB1E70D5B3172FEDF532CB14ECE502718726A220E"
+    "osc\xrsoft.exe"               = "A96DAB666AD7C9606D478F0A06539D25AF1DA4084BA0A87586541601434988CB"
 }
 
 # 构建阶段：使用 NSIS 编译安装包

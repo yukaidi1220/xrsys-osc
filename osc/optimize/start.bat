@@ -317,10 +317,10 @@ if %osver% GEQ 4 (
     for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
     for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
     echo Win10+选择应用在锁屏上显示详细状态-无
-    powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "LockScreenStatus.ps1"
+    powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "LockScreenStatus.ps1" >>"%systemdrive%\Windows\Setup\xrosc-lss.log" 2>&1
     if !smallversion! GEQ 26100 (
         echo Win11移除固定的新版Outlook任务栏图标
-        powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "removeOutlookNewTaskbar.ps1"
+        powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "removeOutlookNewTaskbar.ps1" >>"%systemdrive%\Windows\Setup\xrosc-ront.log" 2>&1
     )
 )
 exit

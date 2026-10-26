@@ -1,39 +1,38 @@
-
-# 从计算机中为所有用户卸载应用包
+﻿# 从计算机中为所有用户卸载应用包
 # Remove-AppxProvisionedPackage cmdlet 从 Windows 映像中移除应用包（.appx）。
 # 新建用户帐户时不会安装这些应用包。
 # 不会从现有用户帐户中移除这些包。
 # 如需移除未预配的应用包（.appx）或仅针对特定用户移除包，请改用 Remove-AppxPackage。
 
 # 逐个移除预配的应用包（从系统映像中删除，新用户不再安装）
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Clipchamp*”} | Remove-AppxProvisionedPackage -Online           # Clipchamp 视频编辑器
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.549981C3F5F10*”} | Remove-AppxProvisionedPackage -Online  # Cortana 语音助手
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.BingNews*”} | Remove-AppxProvisionedPackage -Online     # 必应新闻
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.BingWeather*”} | Remove-AppxProvisionedPackage -Online  # 必应天气
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.GetHelp*”} | Remove-AppxProvisionedPackage -Online      # 获取帮助
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.Getstarted*”} | Remove-AppxProvisionedPackage -Online   # 使用技巧（入门指南）
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.Microsoft3DViewer*”} | Remove-AppxProvisionedPackage -Online  # 3D 查看器
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.MicrosoftPCManager*”} | Remove-AppxProvisionedPackage -Online  # 微软电脑管家
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.MicrosoftTeams*”} | Remove-AppxProvisionedPackage -Online  # Microsoft Teams（旧版）
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.MixedReality.Portal*”} | Remove-AppxProvisionedPackage -Online  # Mixed Reality 混合现实门户
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.Office.OneNote*”} | Remove-AppxProvisionedPackage -Online  # OneNote 笔记
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.OneConnect*”} | Remove-AppxProvisionedPackage -Online    # 网络连接（已弃用）
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.OutlookForWindows*”} | Remove-AppxProvisionedPackage -Online  # 新版 Outlook
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.People*”} | Remove-AppxProvisionedPackage -Online        # 人脉（联系人）
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.PowerAutomateDesktop*”} | Remove-AppxProvisionedPackage -Online  # Power Automate 桌面版
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.Print3D*”} | Remove-AppxProvisionedPackage -Online       # Print 3D 打印
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.SkypeApp*”} | Remove-AppxProvisionedPackage -Online       # Skype 通讯
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.Todos*”} | Remove-AppxProvisionedPackage -Online         # 待办事项
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.WindowsMaps*”} | Remove-AppxProvisionedPackage -Online   # Windows 地图
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.XboxApp*”} | Remove-AppxProvisionedPackage -Online       # Xbox 应用
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.Wallet*”} | Remove-AppxProvisionedPackage -Online         # 钱包（支付）
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*MicrosoftCorporationII.MicrosoftFamily*”} | Remove-AppxProvisionedPackage -Online  # 微软家庭安全
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.MSTeams*”} | Remove-AppxProvisionedPackage -Online       # Microsoft Teams（新版）
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*MicrosoftWindows.Client.WebExperience*”} | Remove-AppxProvisionedPackage -Online  # Widgets 小组件
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.WidgetsPlatformRuntime*”} | Remove-AppxProvisionedPackage -Online  # 小组件平台运行时
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.Windows.DevHome*”} | Remove-AppxProvisionedPackage -Online  # Dev Home 开发者主页
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.windowscommunicationsapps*”} | Remove-AppxProvisionedPackage -Online  # 邮件和日历
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like “*Microsoft.Edge.GameAssist*”} | Remove-AppxProvisionedPackage -Online  # Edge 游戏辅助
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Clipchamp*"} | Remove-AppxProvisionedPackage -Online           # Clipchamp 视频编辑器
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.549981C3F5F10*"} | Remove-AppxProvisionedPackage -Online  # Cortana 语音助手
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.BingNews*"} | Remove-AppxProvisionedPackage -Online     # 必应新闻
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.BingWeather*"} | Remove-AppxProvisionedPackage -Online  # 必应天气
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.GetHelp*"} | Remove-AppxProvisionedPackage -Online      # 获取帮助
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Getstarted*"} | Remove-AppxProvisionedPackage -Online   # 使用技巧（入门指南）
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Microsoft3DViewer*"} | Remove-AppxProvisionedPackage -Online  # 3D 查看器
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MicrosoftPCManager*"} | Remove-AppxProvisionedPackage -Online  # 微软电脑管家
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MicrosoftTeams*"} | Remove-AppxProvisionedPackage -Online  # Microsoft Teams（旧版）
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MixedReality.Portal*"} | Remove-AppxProvisionedPackage -Online  # Mixed Reality 混合现实门户
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Office.OneNote*"} | Remove-AppxProvisionedPackage -Online  # OneNote 笔记
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.OneConnect*"} | Remove-AppxProvisionedPackage -Online    # 网络连接（已弃用）
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.OutlookForWindows*"} | Remove-AppxProvisionedPackage -Online  # 新版 Outlook
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.People*"} | Remove-AppxProvisionedPackage -Online        # 人脉（联系人）
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.PowerAutomateDesktop*"} | Remove-AppxProvisionedPackage -Online  # Power Automate 桌面版
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Print3D*"} | Remove-AppxProvisionedPackage -Online       # Print 3D 打印
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.SkypeApp*"} | Remove-AppxProvisionedPackage -Online       # Skype 通讯
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Todos*"} | Remove-AppxProvisionedPackage -Online         # 待办事项
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WindowsMaps*"} | Remove-AppxProvisionedPackage -Online   # Windows 地图
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.XboxApp*"} | Remove-AppxProvisionedPackage -Online       # Xbox 应用
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Wallet*"} | Remove-AppxProvisionedPackage -Online         # 钱包（支付）
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftCorporationII.MicrosoftFamily*"} | Remove-AppxProvisionedPackage -Online  # 微软家庭安全
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MSTeams*"} | Remove-AppxProvisionedPackage -Online       # Microsoft Teams（新版）
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftWindows.Client.WebExperience*"} | Remove-AppxProvisionedPackage -Online  # Widgets 小组件
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WidgetsPlatformRuntime*"} | Remove-AppxProvisionedPackage -Online  # 小组件平台运行时
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Windows.DevHome*"} | Remove-AppxProvisionedPackage -Online  # Dev Home 开发者主页
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.windowscommunicationsapps*"} | Remove-AppxProvisionedPackage -Online  # 邮件和日历
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Edge.GameAssist*"} | Remove-AppxProvisionedPackage -Online  # Edge 游戏辅助
 
 # 为当前用户卸载应用包（从所有已登录用户帐户中移除）
 # Remove-AppxPackage cmdlet 从用户帐户中移除应用包。
@@ -69,7 +68,7 @@ Get-AppxPackage *Microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPac
 Get-AppxPackage *Microsoft.Edge.GameAssist* -AllUsers | Remove-AppxPackage         # Edge 游戏辅助
 Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage      # Microsoft 365 Copilot
 Get-AppxPackage *Microsoft.Copilot* -AllUsers | Remove-AppxPackage                 # Copilot 助手
-Get-AppxPackage *Microsoft.StartExperiencesApp* -AllUsers | Remove-AppxPackage     # “开始体验”应用
+Get-AppxPackage *Microsoft.StartExperiencesApp* -AllUsers | Remove-AppxPackage     # "开始体验"应用
 Get-AppxPackage *Microsoft.BingSearch* -AllUsers | Remove-AppxPackage              # 必应搜索
 # 以下为已注释掉的可选卸载项（按需取消注释）
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage             # Xbox Game Bar 游戏栏
