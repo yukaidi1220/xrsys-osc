@@ -1,0 +1,40 @@
+# 换行与编码策略（2026-10-26 新增）
+#
+# 背景：本项目大量 .bat 使用 GBK 编码，.ps1/.nsi/.wcs 使用 UTF-8 BOM，
+# .reg 使用 UTF-16LE。Windows 下编码/换行错误会导致脚本静默失效
+# （如 .bat 中文乱码导致 find/goto 匹配失败，.ps1 无 BOM 被 PS 5.1 按 ANSI 读）。
+#
+# 原则：
+#   - 仓库内一律存 LF（text=auto eol=lf），检出到 Windows 时按类型转换
+#   - .bat/.cmd 保持 GBK 字节（git 不做编码转换），仅换行转 CRLF
+#   - .ps1/.nsi/.wcs 保持 UTF-8 BOM，换行转 CRLF
+#   - UTF-16LE 文件必须标记 binary，否则会被当 UTF-8 处理而损坏
+#   - 二进制文件标记 binary，避免任何转换
+
+* text=auto eol=lf
+
+# 批处理：GBK 字节保持，换行归 CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# PowerShell / NSIS / WCS：UTF-8 BOM + CRLF
+*.ps1 text eol=crlf
+*.nsi text eol=crlf
+*.wcs text eol=crlf
+
+# 例外：此 ps1 是 UTF-16LE（头字节 FF FE），套 text 会被当 UTF-8 损坏
+osc/optimize/LockScreenStatus.ps1 binary
+
+# 注册表：UTF-16LE，禁止任何转换
+*.reg binary
+
+# 二进制
+*.exe binary
+*.dll binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.ico binary
+*.7z binary
+*.cab binary
+*.zip binary
