@@ -119,6 +119,9 @@ Section /o "-鹅鹅鹅OS部署接口-部署前" XRAPI1
     SetOutPath "$INSTDIR"
 	  SetOverwrite try
 	  DetailPrint "解压并执行API1..."
+	  SetOutPath "$INSTDIR\common"
+	  File ".\common\env.bat"
+	  SetOutPath "$INSTDIR"
 	  File ".\api\api.bat"
 		ExecShellWait "open" "$OUTDIR\api.bat" "/1" SW_SHOWMINIMIZED
   ${EndIf}
@@ -133,6 +136,9 @@ Section /o "-鹅鹅鹅OS部署接口-部署中" XRAPI2
 	  SetOutPath "$INSTDIR"
 	  SetOverwrite try
 	  DetailPrint "解压并执行API2..."
+	  SetOutPath "$INSTDIR\common"
+	  File ".\common\env.bat"
+	  SetOutPath "$INSTDIR"
 	  File ".\api\api.bat"
 		ExecShellWait "open" "$OUTDIR\api.bat" "/2" SW_SHOWMINIMIZED
 	${EndIf}
@@ -147,6 +153,9 @@ Section /o "-鹅鹅鹅OS部署接口-部署后" XRAPI3
 	  SetOutPath "$INSTDIR"
 	  SetOverwrite try
 	  DetailPrint "解压并执行API3..."
+	  SetOutPath "$INSTDIR\common"
+	  File ".\common\env.bat"
+	  SetOutPath "$INSTDIR"
 	  File ".\api\api.bat"
 		ExecShellWait "open" "$OUTDIR\api.bat" "/3" SW_SHOWMINIMIZED
 	${EndIf}
@@ -172,6 +181,9 @@ Section /o "-鹅鹅鹅OS部署接口-登录时" XRAPI4
 	  SetOutPath "$INSTDIR"
 	  SetOverwrite try
 	  DetailPrint "解压并执行API4..."
+	  SetOutPath "$INSTDIR\common"
+	  File ".\common\env.bat"
+	  SetOutPath "$INSTDIR"
 	  File ".\api\api.bat"
 		ExecShellWait "open" "$OUTDIR\api.bat" "/4" SW_SHOWMINIMIZED
 	${EndIf}
@@ -186,6 +198,9 @@ Section /o "-鹅鹅鹅OS部署接口-进桌面" XRAPI5
 	  SetOutPath "$INSTDIR"
 	  SetOverwrite try
 	  DetailPrint "解压并执行API5..."
+	  SetOutPath "$INSTDIR\common"
+	  File ".\common\env.bat"
+	  SetOutPath "$INSTDIR"
 	  File ".\api\api.bat"
 		ExecShellWait "open" "$OUTDIR\api.bat" "/5" SW_HIDE
 	${EndIf}
@@ -229,6 +244,8 @@ SectionGroup "优化设置"
 SectionGroupEnd
 
 Section "-鹅鹅鹅OS优化工具" EEEOSC
+  SetOutPath "$INSTDIR\common"
+  File ".\common\env.bat"
   SetOutPath "$INSTDIR\osc"
   SetOverwrite try
   DetailPrint "解压相关OSC数据..."
