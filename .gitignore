@@ -30,8 +30,6 @@ $RECYCLE.BIN/
 # 项目特定忽略
 osc.exe
 osc/apifiles/Version.txt
-osc/oscoffline.bat
-osc/oscsoftof.txt
 osc/xrsoft.exe
 # osc/xrkms/KMS_VL_ALL_AIO.cmd
 # osc/xrkms/HEU.exe

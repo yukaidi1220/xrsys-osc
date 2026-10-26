@@ -52,7 +52,7 @@ ver | find /i "10.0." && (
         )
         @rem if exist "%SystemDrive%\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" (
         @rem     echo 安装 Scoop
-        @rem     powershell -C "irm https://c.xrgzs.top/c/scoop|iex"
+        @rem     powershell -C "irm <upstream-scoop-url>|iex"  REM 上游 Scoop 安装脚本（未启用）
         @rem )
     )
 )
