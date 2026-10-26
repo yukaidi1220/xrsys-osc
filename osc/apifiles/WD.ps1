@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 
 # 尝试获取 Windows Defender 首选项（验证 Defender 服务是否可用）
 Get-MpPreference

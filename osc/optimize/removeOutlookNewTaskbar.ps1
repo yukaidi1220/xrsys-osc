@@ -1,4 +1,4 @@
-# 脚本参数: $StartsWith - 要取消固定的应用名称前缀（默认 "Outlook"）; $TimeoutSeconds - 操作超时秒数（默认 5 秒）; $HideTaskbar - 测试隐藏任务栏
+﻿# 脚本参数: $StartsWith - 要取消固定的应用名称前缀（默认 "Outlook"）; $TimeoutSeconds - 操作超时秒数（默认 5 秒）; $HideTaskbar - 测试隐藏任务栏
 param(
     [string]$StartsWith = "Outlook",
     [int]$TimeoutSeconds = 5,

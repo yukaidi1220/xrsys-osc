@@ -1,4 +1,4 @@
-# 要求 PowerShell 7 或更高版本运行
+﻿# 要求 PowerShell 7 或更高版本运行
 #Requires -Version 7
 # 遇到错误时立即终止脚本（严格模式）
 $ErrorActionPreference = 'Stop'
