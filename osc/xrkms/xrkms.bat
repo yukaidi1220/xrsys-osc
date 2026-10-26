@@ -7,7 +7,6 @@ set ver=智能优化工具 V3.26.5.18
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
-if exist wbox.exe set wbox="%~dp0wbox.exe"
 set "xrkmslogfile=%~dp0xrkms.log"
 if exist "%systemdrive%\Windows\Setup\osc" set "xrkmslogfile=%systemdrive%\Windows\Setup\xrkms.log"
 
@@ -15,7 +14,7 @@ if exist "%systemdrive%\Windows\Setup\osc" set "xrkmslogfile=%systemdrive%\Windo
 goto main
 cls
 title %ver% - 自购授权需求询问（请勿关闭此窗口）
-if defined wbox (
+if exist "%XRSYS_OSC_WBOX_EXE%" (
     %XRSYS_OSC_WBOX_EXE% "自购授权需求询问" "即将智能优化系统，^如果您需要使用自购的授权，^请在10s内做出选择！" "智能优化 -$- ;取消优化" /TM=15 /FS=12
     echo !errorlevel!
     if "!errorlevel!"=="2" exit
@@ -164,7 +163,7 @@ REM echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
 REM echo 服务器：%server%
 echo 正在执行KVA...
 echo 执行KMS_VL_ALL_AIO，参数：/u /s /l /x /e %server% >>"%xrkmslogfile%"
-if defined pecmd (
+if exist "%XRSYS_OSC_PECMD_EXE%" (
     start "" /wait "%XRSYS_OSC_PECMD_EXE%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
 ) else (
     start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
@@ -177,7 +176,7 @@ echo 正在执行HKA...
 echo 执行参数：%*
 echo 执行HEU，参数：%* >>"%xrkmslogfile%"
 if exist "Set.ini" type "Set.ini" >>"%xrkmslogfile%"
-if defined pecmd (
+if exist "%XRSYS_OSC_PECMD_EXE%" (
     start "" /wait "%XRSYS_OSC_PECMD_EXE%" EXEC -wait -timeout:120000 HEU.exe %*
 ) else (
     start /wait HEU.exe %*
@@ -197,7 +196,7 @@ REM echo 技术支持：TSForge by Massgrave
 echo 正在执行TSF...
 echo 执行参数：%*
 echo 执行TSForge，参数：%* >>"%xrkmslogfile%"
-if defined pecmd (
+if exist "%XRSYS_OSC_PECMD_EXE%" (
     start "" /wait "%XRSYS_OSC_PECMD_EXE%" EXEC -hide -wait -timeout:120000 TSforge_Activation.cmd %*
 ) else (
     start /wait /min cmd /c TSforge_Activation.cmd %*

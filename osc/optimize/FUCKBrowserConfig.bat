@@ -1,5 +1,7 @@
 @echo off
 chcp 936 > nul
+REM 独立进程启动但当前不依赖 XRSYS_OSC_* 变量；保留 env.bat 调用以防未来回归
+if exist "%~dp0..\..\common\env.bat" call "%~dp0..\..\common\env.bat" OSC
 REM ===========================================================
 REM 文件说明: 浏览器配置优化脚本
 REM 作者: 狂犬主子

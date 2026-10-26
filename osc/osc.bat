@@ -4,6 +4,7 @@ setlocal EnableDelayedExpansion
 title 鹅鹅鹅OS优化组件 EEEOS-OSC
 cd /d "%~dp0"
 call "%~dp0..\common\env.bat" OSC
+if not defined XRSYS_OSC_WINDOWS_VERSION_LEVEL (echo [ERROR] common\env.bat 缺失或未生效，中止部署 & exit /b 1)
 if exist "%systemdrive%\Windows\SysWOW64\wscript.exe" (
     move /y "%~dp0apifiles\PECMD64.exe" "%~dp0apifiles\PECMD.exe"
     move /y "%~dp0apifiles\DrvIndex64.exe" "%~dp0apifiles\DrvIndex.exe"

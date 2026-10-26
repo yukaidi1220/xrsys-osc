@@ -5,6 +5,7 @@ setlocal enabledelayedexpansion
 color 1f
 cd /d "%~dp0"
 if exist "%~dp0common\env.bat" (call "%~dp0common\env.bat" API) else (call "%~dp0..\common\env.bat" API)
+if not defined XRSYS_OSC_WINDOWS_VERSION_LEVEL (echo [ERROR] common\env.bat 缺失或未生效，中止部署 & exit /b 1)
 if exist "%SystemDrive%\Windows\SysWOW64\wscript.exe" (
     move /y "%~dp0apifiles\PECMD64.EXE" "%~dp0apifiles\PECMD.EXE"
 )
