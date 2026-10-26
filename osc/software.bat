@@ -11,6 +11,8 @@ title 鹅鹅鹅OS优化组件osc.exe——软件安装脚本
 
 call "%~dp0..\common\env.bat" OSC
 cd /d "%~dp0"
+REM 低配机器界面优化开关（postsoftware.bat 独立进程依赖，须在 setlocal 前定义）
+set "zjsoftxrgzs=yes"
 setlocal enabledelayedexpansion
 taskkill /f /im msedge.exe
 
@@ -214,6 +216,52 @@ FOR /F "eol=; tokens=1,2,3,4,5,6 delims=|" %%a in (!softlistfile!) do (
     )
 )
 goto softwarefinish
+
+REM ── 第二阶段安装（EEEOS 特有：Run\2 本地预置 + U盘 DIY 接口）──
+:software_stage2
+echo [OSC]正在检查第二阶段安装包...>"%SystemDrive%\Windows\Setup\wallname.txt"
+if exist "%SystemDrive%\Windows\Setup\Run\2\api2.bat" (
+    echo [OSC]正在应用DIY接口api2.bat...>"%SystemDrive%\Windows\Setup\wallname.txt"
+    start "" /max /wait "%SystemDrive%\Windows\Setup\Run\2\api2.bat"
+)
+for %%b in ("%SystemDrive%\Windows\Setup\Run\2\*.exe") do (
+    echo [OSC]正在安装预装软件%%~nxb...>"%SystemDrive%\Windows\Setup\wallname.txt"
+    start "" /wait "%%~b" /S
+    del /f /q "%%~b"
+)
+for %%b in ("%SystemDrive%\Windows\Setup\Run\2\*.msi") do (
+    echo [OSC]正在安装预装软件%%~nxb...>"%SystemDrive%\Windows\Setup\wallname.txt"
+    start "" /wait msiexec /i "%%~b" /passive /qb-! /norestart
+    del /f /q "%%~b"
+)
+for %%b in ("%SystemDrive%\Windows\Setup\Run\2\*.reg") do (
+    echo [OSC]正在应用注册表%%~nxb...>"%SystemDrive%\Windows\Setup\wallname.txt"
+    regedit /s "%%~b"
+    del /f /q "%%~b"
+)
+if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
+    for %%a in (C D E F G H) do (
+        if exist "%%a:\EEEOS\OSC\api2.bat" (
+            echo [OSC]正在应用搜到的DIY接口%%a:\...\api2.bat...>"%SystemDrive%\Windows\Setup\wallname.txt"
+            start "" /max /wait "%%a:\EEEOS\OSC\api2.bat"
+        )
+        for %%b in ("%%a:\EEEOS\OSC\2\*.exe") do (
+            echo [OSC]正在运行搜到的%%~nxb...>"%SystemDrive%\Windows\Setup\wallname.txt"
+            start "" /wait "%%~b" /S
+            del /f /q "%%~b"
+        )
+        for %%b in ("%%a:\EEEOS\OSC\2\*.msi") do (
+            echo [OSC]正在安装搜到的%%~nxb...>"%SystemDrive%\Windows\Setup\wallname.txt"
+            start "" /wait msiexec /i "%%~b" /passive /qb-! /norestart
+            del /f /q "%%~b"
+        )
+        for %%b in ("%%a:\EEEOS\OSC\2\*.reg") do (
+            echo [OSC]正在应用搜到的%%~nxb...>"%SystemDrive%\Windows\Setup\wallname.txt"
+            regedit /s "%%~b"
+            del /f /q "%%~b"
+        )
+    )
+)
 
 :softwarefinish
 echo [OSC]正在运行软件安装后的清理操作...>"%SystemDrive%\Windows\Setup\wallname.txt"
