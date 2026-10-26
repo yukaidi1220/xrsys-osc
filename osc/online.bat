@@ -48,6 +48,22 @@ if exist pack.bat (
 goto local2
 
 :online
+REM ── 兼容映射：oscoffline.bat/osconline.bat 由上游在线下发，仍用旧变量名 ──
+set aria=%XRSYS_OSC_ARIA2_CMD%
+set zip=%XRSYS_OSC_7Z_EXE%
+set pecmd=%XRSYS_OSC_PECMD_EXE%
+set wbox=%XRSYS_OSC_WBOX_EXE%
+set nsudo=%XRSYS_OSC_NSUDO_EXE%
+set dmi=%XRSYS_OSC_DMI_EXE%
+set netuser=%XRSYS_OSC_NETUSER_EXE%
+set nircmd=%XRSYS_OSC_NIRCMD_EXE%
+set winput=%XRSYS_OSC_WINPUT_EXE%
+set drvindex=%XRSYS_OSC_DRVINDEX_EXE%
+set srtool=%XRSYS_OSC_SRTOOL_EXE%
+set wlan=%XRSYS_OSC_WLAN_EXE%
+set osver=%XRSYS_OSC_WINDOWS_VERSION_LEVEL%
+set osname=%XRSYS_OSC_WINDOWS_NAME%
+REM ──────────────────────────────────────────
 cd /d "%~dp0"
 if exist osconline.bat (
     call osconline.bat
