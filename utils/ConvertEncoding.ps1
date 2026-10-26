@@ -1,4 +1,9 @@
-﻿# 定义尝试的编码列表（按优先级排列: UTF-8、Unicode(UTF-16LE)、GB2312、ASCII、Big5）
+﻿# ===========================================================
+# SPDX-License-Identifier: GPL-3.0-or-later
+# 版权所有 (C) 潇然工作室
+# ===========================================================
+
+# 定义尝试的编码列表（按优先级排列: UTF-8、Unicode(UTF-16LE)、GB2312、ASCII、Big5）
 $encodings = [System.Text.Encoding]::UTF8, [System.Text.Encoding]::Unicode, [System.Text.Encoding]::GetEncoding("GB2312"), [System.Text.Encoding]::ASCII, [System.Text.Encoding]::GetEncoding("Big5")
 
 # 获取当前目录及子目录下所有 .reg 注册表文件

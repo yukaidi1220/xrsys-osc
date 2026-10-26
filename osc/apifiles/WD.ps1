@@ -1,4 +1,10 @@
-﻿$ErrorActionPreference = 'Stop'
+﻿# ===========================================================
+# SPDX-License-Identifier: GPL-3.0-or-later
+# 版权所有 (C) 潇然工作室
+# 未经作者许可，不得删除或修改此文件中的版权和许可信息
+# ===========================================================
+
+$ErrorActionPreference = 'Stop'
 
 # 尝试获取 Windows Defender 首选项（验证 Defender 服务是否可用）
 Get-MpPreference

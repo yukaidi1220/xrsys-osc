@@ -1,3 +1,8 @@
+REM ===========================================================
+REM SPDX-License-Identifier: GPL-3.0-or-later
+REM 版权所有 (C) 潇然工作室
+REM ===========================================================
+
 @echo off
 chcp 936 > nul
 setlocal enabledelayedexpansion
