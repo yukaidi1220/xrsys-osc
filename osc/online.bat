@@ -1,6 +1,7 @@
 chcp 936 > nul
 title OSConline
 cd /d "%~dp0"
+call "%~dp0..\common\env.bat" OSC
 set url1=https://url.xrgzs.top
 set url2=https://dl.xrgzs.top/d/url
 set url3=https://list.xrgzs.top/d/url
@@ -9,7 +10,7 @@ set url=%url1%
 
 if exist pack.7z (
     echo [OSC]ÕýÔÚ½âÑ¹pack...>"%systemdrive%\Windows\Setup\wallname.txt"
-    %zip% x -r -y -p123 pack.7z
+    %XRSYS_OSC_7Z_EXE% x -r -y -p123 pack.7z
     del /f /q pack.7z
     echo ok >unpacked.log
 )
@@ -21,7 +22,7 @@ if %errorlevel% GEQ 1 goto offline
 goto try
 
 :try
-%aria% -o checkconnect.txt "%url%/checkconnect"
+%XRSYS_OSC_ARIA2_CMD% -o checkconnect.txt "%url%/checkconnect"
 type checkconnect.txt | find /i "isconnected" > nul && goto online
 goto retry
 
@@ -51,7 +52,7 @@ cd /d "%~dp0"
 if exist osconline.bat (
     call osconline.bat
 ) else (
-    %aria% -o osconline.bat "%url%/osconline"
+    %XRSYS_OSC_ARIA2_CMD% -o osconline.bat "%url%/osconline"
     if exist osconline.bat (
         call osconline.bat
     )

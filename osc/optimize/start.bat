@@ -1,14 +1,15 @@
 chcp 936 > nul
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
+call "%~dp0..\..\common\env.bat" OSC
 
 :regimport
 taskkill /f /im explorer.exe
 taskkill /f /im StartMenuExperienceHost.exe
 echo [OSC]正在导入注册表...>"%systemdrive%\Windows\Setup\wallname.txt"
 start "" /wait /min regimporter.bat
-if %osver% GEQ 2 (
-    %nsudo% -U:T -P:E -wait regimporter.bat
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
+    %XRSYS_OSC_NSUDO_EXE% -U:T -P:E -wait regimporter.bat
 )
 
 :misc
@@ -31,7 +32,7 @@ powercfg setactive SCHEME_BALANCED && powercfg -x -disk-timeout-ac 0
 powercfg setactive SCHEME_MAX && powercfg -x -disk-timeout-ac 0
 powercfg setactive SCHEME_MIN && powercfg -x -disk-timeout-ac 0
 
-if %osver% GEQ 3 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 3 (
     echo win8以上系统禁用快速启动
     reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d 0 /f
     reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d 0 /f
@@ -40,11 +41,11 @@ if %osver% GEQ 3 (
 echo 恢复环境配置
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore" /v DisableSR /f
 if exist "%SystemDrive%\windows\system32\srclient.dll" (
-    start "" /min %srtool% /off
-    start "" /min %srtool% /reset
+    start "" /min %XRSYS_OSC_SRTOOL_EXE% /off
+    start "" /min %XRSYS_OSC_SRTOOL_EXE% /reset
 )
 
-if %osver% GEQ 4 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
     for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
     for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
     rem 关闭遥测服务计划任务
@@ -285,7 +286,7 @@ if %osver% GEQ 4 (
             copy /y "start2.bin" "%LocalAppData%\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin"
         )
     )
-) else if %osver% GEQ 2 (
+) else if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     schtasks /change /tn "\Microsoft\Windows\SystemRestore\SR" /disable 
     schtasks /change /tn "\Microsoft\Windows\Windows Error Reporting\QueueReporting" /disable 
     schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /disable 
@@ -305,7 +306,7 @@ if %osver% GEQ 4 (
 
 echo [OSC]正在优化浏览器配置...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "FUCKBrowserConfig.bat" start "" /wait /min "FUCKBrowserConfig.bat" /s
-if %osver% GEQ 2 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     taskkill /f /im msedge.exe
     rd /s /q "%LocalAppData%\Microsoft\Edge\User Data"
     mkdir "%LocalAppData%\Microsoft\Edge\User Data"
@@ -313,7 +314,7 @@ if %osver% GEQ 2 (
 )
 start explorer.exe
 
-if %osver% GEQ 4 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
     for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
     for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
     echo Win10+选择应用在锁屏上显示详细状态-无
