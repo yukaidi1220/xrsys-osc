@@ -125,8 +125,10 @@ else {
     Invoke-RobustRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
 
     # 下载其他文件（在线配置和软件列表）
-    Invoke-RobustRequest -Uri "https://url.xrgzs.top/osconline" -OutFile "osc\oscoffline.bat" -ErrorAction Stop
-    Invoke-RobustRequest -Uri "https://url.xrgzs.top/oscsoft" -OutFile "osc\oscsoftof.txt" -ErrorAction Stop
+    # [已废弃] 软件清单改为仓库内置 osc\xrsyssoft.txt（上游 4f90ca8 重构）
+    # Invoke-RobustRequest -Uri "https://url.xrgzs.top/osconline" -OutFile "osc\oscoffline.bat" -ErrorAction Stop
+    # [已废弃] 软件清单改为仓库内置 osc\xrsyssoft.txt（上游 4f90ca8 重构）
+    # Invoke-RobustRequest -Uri "https://url.xrgzs.top/oscsoft" -OutFile "osc\oscsoftof.txt" -ErrorAction Stop
 }
 
 # aria2c 不再入库（二进制不入仓库）：构建时按需拉取 i686 版（兼容 32/64 位 Windows）

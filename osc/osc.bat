@@ -355,10 +355,10 @@ if exist "xrkms\xrkms.bat" (
     echo y | start "" /wait "xrkms\xrkms.bat"
 )
 
-:osconline
-echo 应用OSConline
-echo [OSC]正在应用OSConline（可能需要15分钟, 请保持网络通畅）>"%systemdrive%\Windows\Setup\wallname.txt"
-if exist "online.bat" echo y | start "" /wait /min "online.bat"
+:software
+echo 安装软件
+echo [OSC]正在安装软件（可能需要15分钟, 请保持网络通畅）>"%systemdrive%\Windows\Setup\wallname.txt"
+if exist "software.bat" echo y | start "" /wait /min "software.bat"
 
 :afterlife
 echo [OSC]正在处理后续事项...>"%systemdrive%\Windows\Setup\wallname.txt"
