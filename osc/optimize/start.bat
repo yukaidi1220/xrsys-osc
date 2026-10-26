@@ -1,10 +1,9 @@
+chcp 936 > nul
 REM ===========================================================
 REM SPDX-License-Identifier: GPL-3.0-or-later
 REM 版权所有 (C) 潇然工作室
 REM 未经作者许可，不得删除或修改此文件中的版权和许可信息
 REM ===========================================================
-
-chcp 936 > nul
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
 call "%~dp0..\..\common\env.bat" OSC

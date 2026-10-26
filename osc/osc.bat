@@ -1,12 +1,11 @@
+chcp 936 > nul
+setlocal EnableDelayedExpansion
+@echo off
 REM ===========================================================
 REM SPDX-License-Identifier: GPL-3.0-or-later
 REM 版权所有 (C) 潇然工作室
 REM 未经作者许可，不得删除或修改此文件中的版权和许可信息
 REM ===========================================================
-
-chcp 936 > nul
-setlocal EnableDelayedExpansion
-@echo off
 title 鹅鹅鹅OS优化组件 EEEOS-OSC
 cd /d "%~dp0"
 call "%~dp0..\common\env.bat" OSC

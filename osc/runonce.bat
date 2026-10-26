@@ -1,12 +1,11 @@
+@rem %1(start /min cmd.exe /c %0 :& exit )
+powershell -NoLogo -NoProfile -window minimized -command "" >nul
+@echo off
 REM ===========================================================
 REM SPDX-License-Identifier: GPL-3.0-or-later
 REM 版权所有 (C) 潇然工作室
 REM 未经作者许可，不得删除或修改此文件中的版权和许可信息
 REM ===========================================================
-
-@rem %1(start /min cmd.exe /c %0 :& exit )
-powershell -NoLogo -NoProfile -window minimized -command "" >nul
-@echo off
 chcp 936 > nul
 title 清理部署残留（第二次进桌面）...
 tasklist | find /i "PECMD.exe" && exit
