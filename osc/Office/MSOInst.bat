@@ -2,6 +2,7 @@
 @chcp 936 >nul
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
+call "%~dp0..\..\common\env.bat" OSC
 set officeiso=Office.iso
 set officever=
 set officevernum=
@@ -57,15 +58,6 @@ title Office %officever% Installer By EEE
 :readosver
 cls
 echo 系统版本读取
-set osver=0
-ver | find /i "5.1." > nul && set osver=1
-ver | find /i "6.0." > nul && set osver=2
-ver | find /i "6.1." > nul && set osver=2
-ver | find /i "6.2." > nul && set osver=3
-ver | find /i "6.3." > nul && set osver=3
-ver | find /i "6.4." > nul && set osver=4
-ver | find /i "10.0." > nul && set osver=4
-ver | find /i "10.0.2" > nul && set osver=4
 
 :readosarch
 cls
@@ -107,12 +99,12 @@ if not "%officeverarch%"=="%PROCESSOR_ARCHITECTURE%" (
 cls
 echo 系统版本判断
 if %officevernum% GEQ 15 (
-  if %osver% LEQ 1 (
+  if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% LEQ 1 (
     set "errorreason=WinXP系统版本不支持。"
     goto error
   )
   if %officevernum% GEQ 16 (
-    if %osver% LEQ 3 (
+    if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% LEQ 3 (
       if not "%officever%"=="2016" (
         if not "%officeforwin7%"=="yes" (
           set "errorreason=系统版本不支持最新版本Office。"
@@ -183,7 +175,7 @@ if exist SaveAsPDFandXPS.exe start /wait SaveAsPDFandXPS.exe /quiet
 :createdesktoplnk
 cls
 echo 创建桌面快捷方式
-if %osver% LEQ 1 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% LEQ 1 (
     set "stmenupath=%ALLUSERSPROFILE%\「开始」菜单\程序"
     set "deskpath=%ALLUSERSPROFILE%\桌面"
 ) else (

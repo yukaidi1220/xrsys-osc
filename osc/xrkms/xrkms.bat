@@ -1,6 +1,7 @@
 @echo off
 chcp 936 > nul
 cd /d "%~dp0"
+call "%~dp0..\..\common\env.bat" OSC
 setlocal enabledelayedexpansion
 set ver=智能优化工具 V3.26.5.18
 title %ver%（请勿关闭此窗口）
@@ -15,7 +16,7 @@ goto main
 cls
 title %ver% - 自购授权需求询问（请勿关闭此窗口）
 if defined wbox (
-    %wbox% "自购授权需求询问" "即将智能优化系统，^如果您需要使用自购的授权，^请在10s内做出选择！" "智能优化 -$- ;取消优化" /TM=15 /FS=12
+    %XRSYS_OSC_WBOX_EXE% "自购授权需求询问" "即将智能优化系统，^如果您需要使用自购的授权，^请在10s内做出选择！" "智能优化 -$- ;取消优化" /TM=15 /FS=12
     echo !errorlevel!
     if "!errorlevel!"=="2" exit
 ) else (
@@ -28,15 +29,7 @@ mode con: cols=70 lines=5
 cls
 title %ver% - 正在读取参数（请勿关闭此窗口）
 ::系统版本判断
-set osver=0
 ::上面一行可根据系统情况手动填写系统版本，并将下面全部注释掉
-ver | find /i "5.1." > nul && set osver=1
-ver | find /i "6.0." > nul && set osver=2
-ver | find /i "6.1." > nul && set osver=2
-ver | find /i "6.2." > nul && set osver=3
-ver | find /i "6.3." > nul && set osver=3
-ver | find /i "6.4." > nul && set osver=4
-ver | find /i "10.0." > nul && set osver=4
 
 :: KMS服务器，来自互联网
 set serverlist=kms.03k.org kms.000606.xyz kms.ghpym.com kms.lotro.cc kms.sixyin.com kms.loli.best
@@ -63,11 +56,11 @@ echo 正在检测并设置优化方案... >>"%xrkmslogfile%"
 call :isWinActivated
 if %errorlevel% EQU 0 set iswindows=0
 
-if %osver% EQU 2 set iskms=0
-if %osver% EQU 2 set isoem=1
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% EQU 2 set iskms=0
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% EQU 2 set isoem=1
 rem Windows 7上安装的Office被OSPP接管，不适用 TSForge
-if %osver% EQU 2 set isots=0
-if %osver% EQU 2 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% EQU 2 set isots=0
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% EQU 2 (
     systeminfo>>osinfo.txt
     type osinfo.txt | find /i "Windows 7 企业版" && (set iskms=1& set isoem=0)
     type osinfo.txt | find /i "Windows 7 专业版" && (set iskms=1& set isoem=0)
@@ -76,7 +69,7 @@ if %osver% EQU 2 (
     type osinfo.txt | find /i "Server 2008" && (set iskms=1& set isoem=0)
     bcdedit /enum {current} | find /i "path" | find /i ".efi" && set isoem=0
 )
-if %osver% GEQ 4 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
     ver | find /i "10.0.14393" && set iswtsesu=1
     ver | find /i "10.0.17763" && set iswtsesu=1
     ver | find /i "10.0.1904" && set iswtsesu=1
@@ -172,7 +165,7 @@ REM echo 服务器：%server%
 echo 正在执行KVA...
 echo 执行KMS_VL_ALL_AIO，参数：/u /s /l /x /e %server% >>"%xrkmslogfile%"
 if defined pecmd (
-    start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
+    start "" /wait "%XRSYS_OSC_PECMD_EXE%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
 ) else (
     start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
 )
@@ -185,7 +178,7 @@ echo 执行参数：%*
 echo 执行HEU，参数：%* >>"%xrkmslogfile%"
 if exist "Set.ini" type "Set.ini" >>"%xrkmslogfile%"
 if defined pecmd (
-    start "" /wait "%PECMD%" EXEC -wait -timeout:120000 HEU.exe %*
+    start "" /wait "%XRSYS_OSC_PECMD_EXE%" EXEC -wait -timeout:120000 HEU.exe %*
 ) else (
     start /wait HEU.exe %*
 )
@@ -205,14 +198,14 @@ echo 正在执行TSF...
 echo 执行参数：%*
 echo 执行TSForge，参数：%* >>"%xrkmslogfile%"
 if defined pecmd (
-    start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 TSforge_Activation.cmd %*
+    start "" /wait "%XRSYS_OSC_PECMD_EXE%" EXEC -hide -wait -timeout:120000 TSforge_Activation.cmd %*
 ) else (
     start /wait /min cmd /c TSforge_Activation.cmd %*
 )
 goto :eof
 
 :convertWinEntG
-if %osver% LEQ 3 goto :eof
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% LEQ 3 goto :eof
 echo 正在获取当前的Windows SKU...
 echo 正在获取当前的Windows SKU... >>"%xrkmslogfile%"
 for /F "tokens=3* delims=: " %%A in ('dism /english /online /Get-CurrentEdition ^| find /i "Current Edition :"') do set "WIN_SKU=%%A"
@@ -241,7 +234,7 @@ goto :eof
 
 :isWinActivated -> errorlevel EQU 0 ? true : false
 :: XP 不优化 Windows
-if %osver% EQU 1 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% EQU 1 (
     set errorlevel=0
     goto :eof
 )

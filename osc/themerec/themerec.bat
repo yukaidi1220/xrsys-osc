@@ -1,18 +1,11 @@
 @echo off
 chcp 936 > nul
 cd /d "%~dp0"
+call "%~dp0..\..\common\env.bat" OSC
 title Ö÷Ìâ»Ö¸´
 if exist "%SystemDrive%\Windows\Setup\xrsysnotheme.txt" exit
 
-set osver=0
-ver | find /i "5.1." > nul && set osver=1
-ver | find /i "6.0." > nul && set osver=2
-ver | find /i "6.1." > nul && set osver=2
-ver | find /i "6.2." > nul && set osver=3
-ver | find /i "6.3." > nul && set osver=3
-ver | find /i "6.4." > nul && set osver=4
 ver | find /i "10.0." > nul && (
-    set osver=4
     for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
     for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
 )
@@ -24,7 +17,7 @@ if exist "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" (
     copy /y "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" wallpaper.jpg
 )
 
-if %osver% GEQ 2 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     for /f "tokens=3" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\Tablet PC" /v DeviceKind') do if /i not "%%a"=="0x0" call :touch
 )
 
@@ -42,7 +35,7 @@ if exist "%SystemDrive%\Windows\Setup\xrsysdark.txt" (
 )
 timeout -t 3 2>nul || ping 127.0.0.1 -n 3 >nul
 taskkill /F /IM SystemSettings.exe
-if %osver% GEQ 2 %PECMD% TEAM FIND --class:CabinetWClass --wid* R^|KILL @@%%R%% 
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 %XRSYS_OSC_PECMD_EXE% TEAM FIND --class:CabinetWClass --wid* R^|KILL @@%%R%% 
 del /f /q "%LOCALAPPDATA%\Microsoft\Windows\Themes\Custom.theme"
 goto setwall
 
@@ -52,8 +45,8 @@ timeout /t 5
 if exist "%SystemDrive%\Windows\Setup\xrsysnowall.txt" exit
 if exist wallpaper.jpg (
     copy /y wallpaper.jpg "%SystemDrive%\Windows\Version.jpg"
-    %PECMD% WALL "%SystemDrive%\Windows\Version.jpg"
-    if %osver% GEQ 2 (
+    %XRSYS_OSC_PECMD_EXE% WALL "%SystemDrive%\Windows\Version.jpg"
+    if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
         reg add "HKCU\Control Panel\Desktop" /f /v "Wallpaper" /d "%SystemDrive%\Windows\Version.jpg"
         reg add "HKCU\Control Panel\Desktop" /f /v "WallpaperStyle" /d "10"
         RunDll32.exe USER32.DLL,UpdatePerUserSystemParameters
@@ -66,7 +59,7 @@ exit
 if exist "%ProgramW6432%" (
     PinToTaskbar.exe /pin "%SystemDrive%\Windows\System32\osk.exe"
 ) else (
-    %PECMD% PINT "%SystemDrive%\Windows\System32\osk.exe",TaskBand
+    %XRSYS_OSC_PECMD_EXE% PINT "%SystemDrive%\Windows\System32\osk.exe",TaskBand
 )
 regedit /s touch.reg
 goto :EOF
