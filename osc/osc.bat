@@ -393,6 +393,10 @@ if exist "%systemdrive%\Windows\Setup\xrsyswu.txt" (
     start "" /wait /min "%~dp0apifiles\Wub.exe" /D
 )
 
+:finalpower
+echo 应用最终电源偏好
+if exist "optimize\finalpower.bat" echo y | start "" /wait /min "optimize\finalpower.bat"
+
 :endosc
 echo 部署完成
 cd /d "%~dp0"
