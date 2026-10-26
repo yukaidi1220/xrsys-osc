@@ -129,6 +129,12 @@ else {
     Invoke-RobustRequest -Uri "https://url.xrgzs.top/oscsoft" -OutFile "osc\oscsoftof.txt" -ErrorAction Stop
 }
 
+# aria2c 不再入库（二进制不入仓库）：构建时按需拉取 i686 版（兼容 32/64 位 Windows）
+if (-not (Test-Path 'osc\aria2c.exe')) {
+    Write-Host "下载 aria2c（i686）..."
+    Invoke-RobustRequest -Uri "https://github.com/yukaidi1220/aria2/releases/latest/download/aria2c-i686-windows.exe" -OutFile "osc\aria2c.exe" -ErrorAction Stop
+}
+
 # 验证已下载文件的 SHA256 哈希值，确保文件完整且未被篡改
 Test-SHA256 -Hashes @{
     "osc\xrkms\KMS_VL_ALL_AIO.cmd" = "30034802D6F3D7B022E9BCD4B9EE6911755F2058B87E8FE75C4228E60C9F0A1B"
