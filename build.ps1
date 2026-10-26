@@ -138,6 +138,15 @@ else {
 }
 
 # aria2c 不再入库（二进制不入仓库）：构建时按需拉取 i686 版（兼容 32/64 位 Windows）
+# 下载 ViVeTool（功能开关工具，env.bat 已定义 XRSYS_OSC_VIVETOOL_EXE）
+if (-not (Test-Path 'osc\apifiles\vivetool\ViVeTool.exe')) {
+    $viveZip = "$env:TEMP\ViVeTool-v0.3.4-IntelAmd.zip"
+    Invoke-RobustRequest -Uri "https://github.com/thebookisclosed/ViVe/releases/download/v0.3.4/ViVeTool-v0.3.4-IntelAmd.zip" -OutFile $viveZip
+    Test-SHA256 -Hashes @{ $viveZip = "CC27F073F3FE5DD2C3D947FAF558FD4B2F8E34454F812689B0D65EE8A52E4147" }
+    Expand-Archive -Path $viveZip -DestinationPath "osc\apifiles\vivetool" -Force
+    Remove-Item $viveZip -Force
+    Write-Host "ViVeTool 已就位"
+}
 if (-not (Test-Path 'osc\aria2c.exe')) {
     Write-Host "下载 aria2c（i686）..."
     Invoke-RobustRequest -Uri "https://github.com/yukaidi1220/aria2/releases/latest/download/aria2c-i686-windows.exe" -OutFile "osc\aria2c.exe" -ErrorAction Stop
