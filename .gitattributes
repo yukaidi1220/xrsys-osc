@@ -17,6 +17,9 @@
 *.bat text eol=crlf
 *.cmd text eol=crlf
 
+# 软件清单等文本（software.bat 按行解析，需 CRLF）
+*.txt text eol=crlf
+
 # PowerShell / NSIS / WCS：UTF-8 BOM + CRLF
 *.ps1 text eol=crlf
 *.nsi text eol=crlf
